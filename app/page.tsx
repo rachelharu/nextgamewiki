@@ -1,4 +1,6 @@
-// import Image from "next/image";
+import Image from "next/image";
+import AnimateText from "./components/AnimateText";
+import SearchBar from "./components/SearchBar";
 // import styles from "./page.module.css";
 
 export default function Home() {
@@ -8,25 +10,33 @@ export default function Home() {
         <nav className="navbar">
           <div className="container" id="nav">
             <div className="navbar-brand">
-              <a className="navbar-item" href="../">
-                {/* <Image id="logo" src="/images/game-control.png" alt="Logo" width={100} height={100} /> */}
-              </a>
+                <a className="navbar-item" href="../">
+                <Image 
+                  id="logo"
+                  src="/game-control.png"
+                  alt="Logo"
+                  width={0}
+                  height={0}
+                  style={{ width: 'auto', height: 'auto' }}
+                />
+                </a>
             </div>
           </div>
         </nav>
       </div>
-      <div className="hero-body">
+      <div className="${styles.hero-body}">
         <div className="container has-text-centered">
           <div className="columns is-vcentered">
-            <div className="column is-6 is-offset-3">
+            <div className="column">
               <div className="wrapper">
-                <h1 className="title is-2 animation">game lookup</h1>
+              <AnimateText text="game lookup" 
+                className="title is-2 animation" as="h1"/>
                 <h2 className="subtitle is-4 animationSecond">
                   find info about video games
                 </h2>
               </div>
-              <div className="container showBox">
-                <div className="autocomplete" id="autoCom"></div>
+              <div className="search-container">
+                <SearchBar />
                 <div id="summary"></div>
               </div>
               {/* <div className="column is-4by4 is-hidden">
@@ -49,8 +59,7 @@ export default function Home() {
             <ul>
               <li>
                 <a className="footer-tag" href="https://rawg.io/" target="_blank"
-                  >powered by RAWG</a
-                >
+                  >powered by RAWG</a>
               </li>
             </ul>
           </div>
