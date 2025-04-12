@@ -1,6 +1,6 @@
 import Image from "next/image";
-import AnimateText from "./components/AnimateText";
-import SearchBar from "./components/SearchBar";
+import AnimateText from "../components/AnimateText";
+import SearchBar from "../components/SearchBar";
 // import styles from "./page.module.css";
 
 export default function Home() {
