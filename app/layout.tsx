@@ -32,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${openSans.variable}`}>
-        {children}
+        <main className="hero is-fullheight is-default is-bold">
+         {children}
+        </main>
       </body>
     </html>
   );

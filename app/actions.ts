@@ -7,6 +7,22 @@ export interface Game {
   background_image: string;
 }
 
+export interface GameDetails {
+  id: number;
+  name: string;
+  background_image: string;
+  description_raw: string;
+  genres: Array<{ name: string }>;
+  publishers: Array<{ name: string }>;
+  developers: Array<{ name: string }>;
+  released: string;
+  esrb_rating: { name: string } | null;
+  metacritic: number | null;
+  metacritic_url: string;
+  platforms: Array<{ platform: { name: string } }>;
+}
+
+
 interface ApiResponse {
   results: Game[];
   count: number;

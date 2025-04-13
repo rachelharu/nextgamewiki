@@ -2,10 +2,15 @@
 import { searchGames, type Game } from '@/app/actions';
 import { useState } from 'react';
 
-export default function SearchBar() {
+interface SearchBarProps {
+    variant: 'navbar' | 'default';
+  }
+
+export default function SearchBar({ variant }: SearchBarProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [results, setResults] = useState<Game[]>([]);
+    const isNavbar = variant === 'navbar';
 
     const handleSearch = async (value: string) => {
         setSearchTerm(value);
@@ -21,23 +26,26 @@ export default function SearchBar() {
         }
     };
 
-    const handGameSelect = (game: Game) => {
+    const handleGameSelect = (game: Game) => {
         setIsOpen(false);
         setSearchTerm(game.name);
-        window.location.href = `/game/${game.id}`;
+        window.location.href = `/gameDetails/${game.id}`;
     };
 
     return (
-        <div className="autocomplete">
+        <div className={`autocomplete ${isNavbar ? 'is-small' : ''}`}>
+        {!isNavbar && (
             <label>
                 <b className="inputTag">Search</b>
             </label>
-            <input
-              className="input"
-              value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
-              onFocus={() => setIsOpen(true)}
-            />
+        )}
+        <input
+            className={`input ${isNavbar ? 'is-small' : ''}`}
+            value={searchTerm}
+            onChange={(e) => handleSearch(e.target.value)}
+            onFocus={() => setIsOpen(true)}
+            placeholder={isNavbar ? 'Search games...' : ''}
+        />
             {isOpen && results.length > 0 && (
                 <div className="dropdown is-active">
                     <div className="dropdown-menu">
@@ -46,7 +54,7 @@ export default function SearchBar() {
                                 <a
                                     key={game.id}
                                     className="dropdown-item"
-                                    onClick={() => handGameSelect(game)}
+                                    onClick={() => handleGameSelect(game)}
                                 >
                                     <img src={game.background_image} alt={game.name} />
                                     <h1>{game.name}</h1>

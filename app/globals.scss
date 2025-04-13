@@ -22,8 +22,13 @@ figure .image img {
   border-radius: 5px;
 }
 
+.hero-margin {
+  margin-top: 160px;
+}
+
 .hero-body {
   background-color: #181818;
+  justify-content: center;
 }
 
 .navbar {
@@ -132,7 +137,6 @@ figure .image img {
 
 .dev-hero {
   margin-bottom: 20px;
-  display: inline-block;
 }
 
 nav .title{
@@ -300,7 +304,7 @@ button.dropdown-item:hover {
     margin-bottom: 0px;
   }
   .hero-body {
-    display: inline-block !important;
+    justify-content: center;
   }
 }
 
@@ -313,6 +317,7 @@ button.dropdown-item:hover {
 
   #hero-title {
     margin-right: 0px;
+
   }
 
   .dev-subtitle {
@@ -322,8 +327,9 @@ button.dropdown-item:hover {
   .dev-hero {
     display: inline-block !important;
   }
+
   .hero-body {
-    display: inline-block !important;
+    justify-content: center;
   }
 
   .media, .media-left {
