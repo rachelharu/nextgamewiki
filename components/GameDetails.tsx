@@ -30,18 +30,18 @@ export default function GameDetails({ id }: GameDetailsProps) {
   if (loading) return <div>Loading...</div>;
   if (!gameData) return <div>Game not found</div>;
 
-  const { 
-    name, 
-    background_image, 
-    description_raw, 
-    genres, 
+  const {
+    name,
+    background_image,
+    description_raw,
+    genres,
     publishers,
     developers,
     released,
     esrb_rating,
     metacritic,
     metacritic_url,
-    platforms 
+    platforms
   } = gameData;
 
   return (
@@ -49,10 +49,10 @@ export default function GameDetails({ id }: GameDetailsProps) {
       <article className="media">
         <figure className="media-left">
             <p className="image">
-            <Image 
-              id="art" 
-              src={background_image} 
-              alt={name} 
+            <Image
+              id="art"
+              src={background_image}
+              alt={name}
               width={500}
               height={300}
               style={{ width: '100%', height: 'auto' }}
@@ -76,6 +76,9 @@ export default function GameDetails({ id }: GameDetailsProps) {
         </div>
       </div>
 
+     <div className="card">
+      <div className="card-content">
+      <div className="content">
       <section className="dev-hero">
         <div className="hero-body">
           <p className="herotitle" id="hero-title">Publisher:</p>
@@ -84,7 +87,7 @@ export default function GameDetails({ id }: GameDetailsProps) {
           <p className="dev-subtitle">{developers?.map((d) => d.name).join(', ')}</p>
         </div>
       </section>
-
+  
       <nav className="level">
         <div className="level-item has-text-centered">
           <div>
@@ -95,7 +98,13 @@ export default function GameDetails({ id }: GameDetailsProps) {
         <div className="level-item has-text-centered">
           <div>
             <p className="heading">Released:</p>
-            <p className="title">{released === null ? 'N/A' : released}</p>
+            <p className="title"> {released === null
+                ? 'N/A'
+                : new Intl.DateTimeFormat('en-US', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    year: 'numeric',
+                  }).format(new Date(released))}</p>
           </div>
         </div>
         <div className="level-item has-text-centered">
@@ -107,6 +116,9 @@ export default function GameDetails({ id }: GameDetailsProps) {
           </div>
         </div>
       </nav>
+      </div>
+      </div>
+     </div>
 
       <article className="message">
         <div className="message-header">

@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//run npx prisma generate when this is edited
+model trackedGame {
+  id              String   @id @default(uuid())
+  trackedGameName String
+  count           Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([count(sort: Desc)], name: "idx_gameTracker_searchCount")
+  @@index([trackedGameName], name: "idx_gameTracker_trackedGameName")
+  @@map("gameTracker")
+}
