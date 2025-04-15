@@ -18,7 +18,6 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
         try {
             const games = await searchGames(value);
-            console.log('Search results:', games);
             setResults(games);
             setIsOpen(true);
         } catch (error) {

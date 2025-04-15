@@ -15,7 +15,6 @@ export default function GameDetails({ id }: GameDetailsProps) {
     async function loadGameDetails() {
       try {
         const details = await getGameDetails(id);
-        console.log('Game details:', details);
         setGameData(details);
         setLoading(false);
       } catch (error) {

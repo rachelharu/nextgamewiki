@@ -23,6 +23,10 @@ figure .image img {
   border-radius: 5px;
 }
 
+.box {
+  box-shadow: rgba(8, 8, 8, 0.1) 0px 0.5em 1em -0.125em, rgba(8, 8, 8, 0.02) 0px 0px 0px 1px !important;
+}
+
 .hero-margin {
   margin-top: 160px;
 }

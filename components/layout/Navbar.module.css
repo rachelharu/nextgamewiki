@@ -1,0 +1,45 @@
+.logoContainer {
+  position: relative;
+}
+
+.logoContainer:hover .slideMenu {
+  animation: slideDown 0.3s ease forwards;
+}
+
+.slideMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #363636;
+  min-width: 200px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  z-index: 99;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scaleY(0.5);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.slideMenu a.navbar-item {
+  color: white;
+  padding: 0.75rem 1rem;
+  display: block;
+  transition: background-color 0.2s ease;
+}
+
+.slideMenu a.navbar-item:hover {
+  background-color: #292929;
+}
