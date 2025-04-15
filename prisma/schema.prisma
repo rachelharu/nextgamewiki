@@ -17,12 +17,12 @@ datasource db {
 //run npx prisma generate when this is edited
 model trackedGame {
   id              String @id @default(uuid())
-  trackedGameName String
+  rawgGameID      String
   count           Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@map("gameTracker")
   @@index([count(sort: Desc)], name: "idx_gameTracker_searchCount")
-  @@index([trackedGameName], name: "idx_gameTracker_trackedGameName")
+  @@index([rawgGameID], name: "idx_gameTracker_rawgGameId")
 }

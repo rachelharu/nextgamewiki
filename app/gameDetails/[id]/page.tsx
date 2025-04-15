@@ -1,8 +1,11 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GameDetails from "@/components/GameDetails";
+import { trackGameView } from "../../actions/trackGameViews";
 
-export default function GameDetailsPage({ params }: { params: { id: string } }) {
+export default async function GameDetailsPage({ params }: { params: { id: string } }) {
+  await trackGameView(params.id);
+
   return (
     <>
       <Navbar showSearch={true} />

@@ -891,7 +891,7 @@ export namespace Prisma {
 
   export type TrackedGameMinAggregateOutputType = {
     id: string | null
-    trackedGameName: string | null
+    rawgGameID: string | null
     count: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -899,7 +899,7 @@ export namespace Prisma {
 
   export type TrackedGameMaxAggregateOutputType = {
     id: string | null
-    trackedGameName: string | null
+    rawgGameID: string | null
     count: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -907,7 +907,7 @@ export namespace Prisma {
 
   export type TrackedGameCountAggregateOutputType = {
     id: number
-    trackedGameName: number
+    rawgGameID: number
     count: number
     createdAt: number
     updatedAt: number
@@ -925,7 +925,7 @@ export namespace Prisma {
 
   export type TrackedGameMinAggregateInputType = {
     id?: true
-    trackedGameName?: true
+    rawgGameID?: true
     count?: true
     createdAt?: true
     updatedAt?: true
@@ -933,7 +933,7 @@ export namespace Prisma {
 
   export type TrackedGameMaxAggregateInputType = {
     id?: true
-    trackedGameName?: true
+    rawgGameID?: true
     count?: true
     createdAt?: true
     updatedAt?: true
@@ -941,7 +941,7 @@ export namespace Prisma {
 
   export type TrackedGameCountAggregateInputType = {
     id?: true
-    trackedGameName?: true
+    rawgGameID?: true
     count?: true
     createdAt?: true
     updatedAt?: true
@@ -1036,7 +1036,7 @@ export namespace Prisma {
 
   export type TrackedGameGroupByOutputType = {
     id: string
-    trackedGameName: string
+    rawgGameID: string
     count: number
     createdAt: Date
     updatedAt: Date
@@ -1063,7 +1063,7 @@ export namespace Prisma {
 
   export type trackedGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    trackedGameName?: boolean
+    rawgGameID?: boolean
     count?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1071,7 +1071,7 @@ export namespace Prisma {
 
   export type trackedGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    trackedGameName?: boolean
+    rawgGameID?: boolean
     count?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1079,7 +1079,7 @@ export namespace Prisma {
 
   export type trackedGameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    trackedGameName?: boolean
+    rawgGameID?: boolean
     count?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1087,20 +1087,20 @@ export namespace Prisma {
 
   export type trackedGameSelectScalar = {
     id?: boolean
-    trackedGameName?: boolean
+    rawgGameID?: boolean
     count?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type trackedGameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "trackedGameName" | "count" | "createdAt" | "updatedAt", ExtArgs["result"]["trackedGame"]>
+  export type trackedGameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rawgGameID" | "count" | "createdAt" | "updatedAt", ExtArgs["result"]["trackedGame"]>
 
   export type $trackedGamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "trackedGame"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      trackedGameName: string
+      rawgGameID: string
       count: number
       createdAt: Date
       updatedAt: Date
@@ -1528,7 +1528,7 @@ export namespace Prisma {
    */
   interface trackedGameFieldRefs {
     readonly id: FieldRef<"trackedGame", 'String'>
-    readonly trackedGameName: FieldRef<"trackedGame", 'String'>
+    readonly rawgGameID: FieldRef<"trackedGame", 'String'>
     readonly count: FieldRef<"trackedGame", 'Int'>
     readonly createdAt: FieldRef<"trackedGame", 'DateTime'>
     readonly updatedAt: FieldRef<"trackedGame", 'DateTime'>
@@ -1914,7 +1914,7 @@ export namespace Prisma {
 
   export const TrackedGameScalarFieldEnum: {
     id: 'id',
-    trackedGameName: 'trackedGameName',
+    rawgGameID: 'rawgGameID',
     count: 'count',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -2008,7 +2008,7 @@ export namespace Prisma {
     OR?: trackedGameWhereInput[]
     NOT?: trackedGameWhereInput | trackedGameWhereInput[]
     id?: StringFilter<"trackedGame"> | string
-    trackedGameName?: StringFilter<"trackedGame"> | string
+    rawgGameID?: StringFilter<"trackedGame"> | string
     count?: IntFilter<"trackedGame"> | number
     createdAt?: DateTimeFilter<"trackedGame"> | Date | string
     updatedAt?: DateTimeFilter<"trackedGame"> | Date | string
@@ -2016,7 +2016,7 @@ export namespace Prisma {
 
   export type trackedGameOrderByWithRelationInput = {
     id?: SortOrder
-    trackedGameName?: SortOrder
+    rawgGameID?: SortOrder
     count?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2027,7 +2027,7 @@ export namespace Prisma {
     AND?: trackedGameWhereInput | trackedGameWhereInput[]
     OR?: trackedGameWhereInput[]
     NOT?: trackedGameWhereInput | trackedGameWhereInput[]
-    trackedGameName?: StringFilter<"trackedGame"> | string
+    rawgGameID?: StringFilter<"trackedGame"> | string
     count?: IntFilter<"trackedGame"> | number
     createdAt?: DateTimeFilter<"trackedGame"> | Date | string
     updatedAt?: DateTimeFilter<"trackedGame"> | Date | string
@@ -2035,7 +2035,7 @@ export namespace Prisma {
 
   export type trackedGameOrderByWithAggregationInput = {
     id?: SortOrder
-    trackedGameName?: SortOrder
+    rawgGameID?: SortOrder
     count?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2051,7 +2051,7 @@ export namespace Prisma {
     OR?: trackedGameScalarWhereWithAggregatesInput[]
     NOT?: trackedGameScalarWhereWithAggregatesInput | trackedGameScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"trackedGame"> | string
-    trackedGameName?: StringWithAggregatesFilter<"trackedGame"> | string
+    rawgGameID?: StringWithAggregatesFilter<"trackedGame"> | string
     count?: IntWithAggregatesFilter<"trackedGame"> | number
     createdAt?: DateTimeWithAggregatesFilter<"trackedGame"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"trackedGame"> | Date | string
@@ -2059,7 +2059,7 @@ export namespace Prisma {
 
   export type trackedGameCreateInput = {
     id?: string
-    trackedGameName: string
+    rawgGameID: string
     count: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2067,7 +2067,7 @@ export namespace Prisma {
 
   export type trackedGameUncheckedCreateInput = {
     id?: string
-    trackedGameName: string
+    rawgGameID: string
     count: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2075,7 +2075,7 @@ export namespace Prisma {
 
   export type trackedGameUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    trackedGameName?: StringFieldUpdateOperationsInput | string
+    rawgGameID?: StringFieldUpdateOperationsInput | string
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2083,7 +2083,7 @@ export namespace Prisma {
 
   export type trackedGameUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    trackedGameName?: StringFieldUpdateOperationsInput | string
+    rawgGameID?: StringFieldUpdateOperationsInput | string
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2091,7 +2091,7 @@ export namespace Prisma {
 
   export type trackedGameCreateManyInput = {
     id?: string
-    trackedGameName: string
+    rawgGameID: string
     count: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2099,7 +2099,7 @@ export namespace Prisma {
 
   export type trackedGameUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    trackedGameName?: StringFieldUpdateOperationsInput | string
+    rawgGameID?: StringFieldUpdateOperationsInput | string
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2107,7 +2107,7 @@ export namespace Prisma {
 
   export type trackedGameUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    trackedGameName?: StringFieldUpdateOperationsInput | string
+    rawgGameID?: StringFieldUpdateOperationsInput | string
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2152,7 +2152,7 @@ export namespace Prisma {
 
   export type trackedGameCountOrderByAggregateInput = {
     id?: SortOrder
-    trackedGameName?: SortOrder
+    rawgGameID?: SortOrder
     count?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2164,7 +2164,7 @@ export namespace Prisma {
 
   export type trackedGameMaxOrderByAggregateInput = {
     id?: SortOrder
-    trackedGameName?: SortOrder
+    rawgGameID?: SortOrder
     count?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2172,7 +2172,7 @@ export namespace Prisma {
 
   export type trackedGameMinOrderByAggregateInput = {
     id?: SortOrder
-    trackedGameName?: SortOrder
+    rawgGameID?: SortOrder
     count?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder

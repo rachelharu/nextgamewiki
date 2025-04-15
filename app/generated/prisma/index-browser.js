@@ -119,7 +119,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.TrackedGameScalarFieldEnum = {
   id: 'id',
-  trackedGameName: 'trackedGameName',
+  rawgGameID: 'rawgGameID',
   count: 'count',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

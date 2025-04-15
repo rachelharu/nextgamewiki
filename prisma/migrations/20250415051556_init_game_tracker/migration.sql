@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "gameTracker" (
     "id" TEXT NOT NULL,
-    "trackedGameName" TEXT NOT NULL,
+    "rawgGameID" TEXT NOT NULL,
     "count" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -13,4 +13,4 @@ CREATE TABLE "gameTracker" (
 CREATE INDEX "idx_gameTracker_searchCount" ON "gameTracker"("count" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_gameTracker_trackedGameName" ON "gameTracker"("trackedGameName");
+CREATE INDEX "idx_gameTracker_rawgGameId" ON "gameTracker"("rawgGameID");
