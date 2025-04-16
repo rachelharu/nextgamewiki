@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:clean": "./scripts/docker-cleanup.sh"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -30,5 +31,8 @@
     "eslint-config-next": "15.2.4",
     "prisma": "^6.6.0",
     "typescript": "^5"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser"
   }
 }

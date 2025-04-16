@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { searchGames, type Game } from '@/app/actions';
 import { useState } from 'react';
 
@@ -55,7 +56,11 @@ export default function SearchBar({ variant }: SearchBarProps) {
                                     className="dropdown-item"
                                     onClick={() => handleGameSelect(game)}
                                 >
-                                    <img src={game.background_image} alt={game.name} />
+                                    <Image src={game.background_image} 
+                                        alt={game.name} 
+                                        width={50} 
+                                        height={50} 
+                                        style={{ objectFit: 'cover'}} />
                                     <h1>{game.name}</h1>
                                 </a>
                             ))}

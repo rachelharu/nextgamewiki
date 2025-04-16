@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, ElementType } from 'react';
+import { useRef, ElementType } from 'react';
 
 interface AnimateTextProps {
     text: string;

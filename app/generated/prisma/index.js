@@ -134,6 +134,10 @@ const config = {
         "fromEnvVar": null,
         "value": "debian-openssl-3.0.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -160,8 +164,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n//run npx prisma generate when this is edited\nmodel trackedGame {\n  id         String   @id @default(uuid())\n  rawgGameID String\n  count      Int\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([count(sort: Desc)], name: \"idx_gameTracker_searchCount\")\n  @@index([rawgGameID], name: \"idx_gameTracker_rawgGameId\")\n  @@map(\"gameTracker\")\n}\n",
-  "inlineSchemaHash": "604b2ee9e0777121b24598efcb52587f440ac70581dd91dd287dfa67bd3975c9",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n//run npx prisma generate when this is edited\nmodel trackedGame {\n  id         String   @id @default(uuid())\n  rawgGameID String\n  count      Int\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([count(sort: Desc)], name: \"idx_gameTracker_searchCount\")\n  @@index([rawgGameID], name: \"idx_gameTracker_rawgGameId\")\n  @@map(\"gameTracker\")\n}\n",
+  "inlineSchemaHash": "01e86ca6ac345d46ed56b9c916a2d626809932e3f66010327f48f5b29f181210",
   "copyEngine": true
 }
 
@@ -202,6 +206,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
 path.join(process.cwd(), "app/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "app/generated/prisma/libquery_engine-linux-musl-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "app/generated/prisma/schema.prisma")
