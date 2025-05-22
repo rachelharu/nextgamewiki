@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { db } from "@/lib/db";
 import { getGameDetails } from "@/app/actions";
 
+export const dynamic = 'force-dynamic';
 
 async function getTopGames() {
     return await db.trackedGame.findMany({

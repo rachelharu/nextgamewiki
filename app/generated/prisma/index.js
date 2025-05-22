@@ -123,7 +123,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/raechill/nextgamewiki/app/generated/prisma",
+      "value": "/home/raechiill/nextgamewiki/app/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -141,7 +141,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/raechill/nextgamewiki/prisma/schema.prisma",
+    "sourceFilePath": "/home/raechiill/nextgamewiki/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -155,7 +155,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -164,8 +164,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n//run npx prisma generate when this is edited\nmodel trackedGame {\n  id         String   @id @default(uuid())\n  rawgGameID String\n  count      Int\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([count(sort: Desc)], name: \"idx_gameTracker_searchCount\")\n  @@index([rawgGameID], name: \"idx_gameTracker_rawgGameId\")\n  @@map(\"gameTracker\")\n}\n",
-  "inlineSchemaHash": "01e86ca6ac345d46ed56b9c916a2d626809932e3f66010327f48f5b29f181210",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\n//run npx prisma generate when this is edited\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel trackedGame {\n  id         String   @id @default(uuid())\n  rawgGameID String\n  count      Int\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([count(sort: Desc)], name: \"idx_gameTracker_searchCount\")\n  @@index([rawgGameID], name: \"idx_gameTracker_rawgGameId\")\n  @@map(\"gameTracker\")\n}\n",
+  "inlineSchemaHash": "61727119a4122cc6c39b219dc1ea3d19256845fe6375c5a64f04cbc8355e29b9",
   "copyEngine": true
 }
 

@@ -7,10 +7,21 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - RAWG_API_KEY=${RAWG_API_KEY}
       - RAPID_API_KEY=${RAPID_API_KEY}
+      - NEXT_PUBLIC_RAWG_API_KEY=${RAWG_API_KEY}
+      - NODE_ENV=production
     volumes:
       - .:/app
       - /app/node_modules
+      - /app/.next
+    restart: on-failure
+    command: >
+      sh -c "
+        echo 'Checking environment variables...' &&
+        if [ -z \"$RAWG_API_KEY\" ]; then echo 'RAWG_API_KEY is missing'; exit 1; fi &&
+        if [ -z \"$RAPID_API_KEY\" ]; then echo 'RAPID_API_KEY is missing'; exit 1; fi &&
+        if [ -z \"$DATABASE_URL\" ]; then echo 'DATABASE_URL is missing'; exit 1; fi &&
+        npm run build && 
+        npm start
+      "
 
-    command: sh -c "npm run build && npm start"
-
-# //run docker compose up if file is edited.
+# //run docker compose up --build if file is edited.

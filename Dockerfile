@@ -11,7 +11,7 @@ ENV NODE_ENV=production
 COPY package*.json ./
 
 # Install production dependencies (and dev dependencies if needed during build)
-RUN npm install --production
+RUN npm install --omit=dev
 
 
 COPY . .
