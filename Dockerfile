@@ -12,6 +12,7 @@ ENV RAPID_API_KEY=RAPID_API_KEY
 ENV NEXT_PUBLIC_RAWG_API_KEY=RAWG_API_KEY
 
 COPY package*.json ./
+COPY prisma ./prisma/
 
 # Install production dependencies (and dev dependencies if needed during build)
 RUN npm install --production
