@@ -1,0 +1,155 @@
+
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A CloudFormation template that creates a VPC, Subnet, Internet Gateway, Route Table, Security Group, and EC2 instance",
+    "Parameters": {
+        "SSHLocation": {
+            "Type": "String",
+            "Description": "The IP address range that can be used to SSH to the EC2 instances",
+            "Default": "0.0.0.0/0"
+        },
+        "KeyName": {
+            "Type": "String",
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "ConstraintDescription": "Must be the name of an existing EC2 KeyPair."
+        }
+    },
+    "Resources": {
+        "VPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.0.0.0/16",
+                "EnableDnsSupport": true,
+                "EnableDnsHostnames": true,
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyVPC"
+                    }
+                ]
+            }
+        },
+        "Subnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": "10.0.0.0/24",
+                "MapPublicIpOnLaunch": true,
+                "AvailabilityZone": {
+                    "Fn::Sub": "${AWS::Region}a"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MySubnet"
+                    }
+                ]
+            }
+        },
+        "InternetGateway": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyInternetGateway"
+                    }
+                ]
+            }
+        },
+        "VPCGatewayAttachment": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "InternetGatewayId": {
+                    "Ref": "InternetGateway"
+                }
+            }
+        },
+        "RouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyRouteTable"
+                    }
+                ]
+            }
+        },
+        "Route": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "RouteTable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "InternetGateway"
+                }
+            }
+        },
+        "SubnetRouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "Subnet"
+                },
+                "RouteTableId": {
+                    "Ref": "RouteTable"
+                }
+            }
+        },
+        "InstanceSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable SSH access via port 22 and HTTP access via port 80",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": {
+                            "Ref": "SSHLocation"
+                        }
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 80,
+                        "ToPort": 80,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "EC2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-07706bb32254a7fe5",
+                "InstanceType": "t2.micro",
+                "KeyName": "nextjs-ec2-key",
+                "SubnetId": {
+                    "Ref": "Subnet"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "InstanceSecurityGroup"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": "#!/bin/bash\nyum update -y\nyum install -y httpd\nsystemctl start httpd\nsystemctl enable httpd\necho \"<h1>Hello World from CloudFormation!</h1>\" > /var/www/html/index.html"
+                }
+            }
+        }
+    }
+}
