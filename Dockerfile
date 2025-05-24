@@ -15,7 +15,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # Install production dependencies (and dev dependencies if needed during build)
-RUN npm install --production
+RUN npm install --omit=dev
 
 
 COPY . .
