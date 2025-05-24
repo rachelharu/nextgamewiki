@@ -35,6 +35,8 @@ COPY --from=builder /app/.next/ ./.next/
 COPY --from=builder /app/public/ ./public/              
 COPY --from=builder /app/prisma/ ./prisma/               
 
+COPY --from=builder /app/node_modules/.prisma/client/ ./node_modules/.prisma/client/
+
 EXPOSE 3000
 
 # Start the application in production mode
