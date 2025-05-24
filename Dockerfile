@@ -14,7 +14,7 @@ ENV NEXT_PUBLIC_RAWG_API_KEY=RAWG_API_KEY
 COPY package*.json ./
 
 # Install production dependencies (and dev dependencies if needed during build)
-RUN npm install --omit=dev
+RUN npm install --production
 
 
 COPY . .
