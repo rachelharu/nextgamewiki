@@ -11,9 +11,9 @@ ENV NODE_ENV=production
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install production dependencies (and dev dependencies if needed during build)
-RUN npm install
-
+# Install production dependencies 
+RUN npm install \
+    && npx prisma generate
 
 COPY . .
 
