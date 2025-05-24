@@ -13,6 +13,9 @@ COPY prisma ./prisma/
 RUN npm install \
     && npx prisma generate
 
+#not permanent fix
+RUN npm install -g eslint typescript @types/node @types/react
+
 COPY . .
 
 # Build the Next.js app (production build)
