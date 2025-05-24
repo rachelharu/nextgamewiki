@@ -21,7 +21,7 @@ export default async function TrendingPage() {
     const topGames = await getTopGames();
 
     const gameDetails = await Promise.all(
-        topGames.map(async (game) => {
+        topGames.map(async (game: any) => {
             const details = await getGameDetails(game.rawgGameID);
             return {
                 ...details

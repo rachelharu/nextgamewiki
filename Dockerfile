@@ -1,28 +1,29 @@
-FROM node:22-alpine AS builder
+# --- Stage 1: Build Image ---
+FROM node:22 AS builder
 
 WORKDIR /app
 
 # Set environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
+# No ENV NODE_ENV=production here, to ensure all dependencies (including dev) are installed
 
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install production dependencies 
-RUN npm install \
-    && npx prisma generate
-
-#not permanent fix
-RUN npm install -g eslint typescript @types/node @types/react
+RUN npm install
 
 COPY . .
+
+RUN npx prisma generate
+
+# Set NODE_ENV to production before building for Next.js optimizations
+ENV NODE_ENV=production
 
 # Build the Next.js app (production build)
 RUN npm run build
 
 # --- Stage 2: Production Runtime Image ---
-FROM node:22-alpine AS runner
+FROM node:22 AS runner
 
 WORKDIR /app
 
