@@ -3,12 +3,10 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      # Get AWS account ID and region automatically (requires IAM permissions on CodeBuild role)
       - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
-      - AWS_REGION=$(aws configure get region)
+      - AWS_REGION=us-west-1
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
-      # Ensure this repository name matches the one in ECR EXACTLY.
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/gamelookup-ecr
 
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
