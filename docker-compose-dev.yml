@@ -1,0 +1,30 @@
+# docker-compose.dev.yml
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+      - "9230:9230"
+
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - RAWG_API_KEY=${RAWG_API_KEY}
+      - RAPID_API_KEY=${RAPID_API_KEY}
+      - NEXT_PUBLIC_RAWG_API_KEY=${RAWG_API_KEY}
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+    restart: on-failure
+
+    command: ["npm", "run", "dev"]
+
+# //run docker compose - f docker-compose-dev.yml up --build if file is edited.
