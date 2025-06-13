@@ -351,3 +351,9 @@ button.dropdown-item:hover {
   }
   
 }
+
+@media screen and (max-width: 766px) {
+  .hero-body {
+    display: block !important;
+  }
+}
