@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import '@mantine/core/styles.css';
+import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 import "./globals.scss";
+import { theme } from '../theme';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
@@ -29,11 +32,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={`${openSans.variable}`}>
-        <main className="hero is-fullheight is-default is-bold">
-         {children}
-        </main>
+        <MantineProvider theme={theme}>
+          <main className="hero is-fullheight is-default is-bold">
+            {children}
+          </main>
+        </MantineProvider>
       </body>
     </html>
   );
