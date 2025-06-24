@@ -10,7 +10,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #363636;
+  background-color:  #202031;
   min-width: 200px;
   opacity: 0;
   transform: scaleY(0);
@@ -41,5 +41,5 @@
 }
 
 .slideMenu a.navbar-item:hover {
-  background-color: #292929;
+  background-color: #6c6b77;
 }

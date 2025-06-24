@@ -36,7 +36,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
         <div className={`autocomplete ${isNavbar ? 'is-small' : ''}`}>
         {!isNavbar && (
             <label>
-                <b className="inputTag">Search</b>
+                <b className="inputTag"></b>
             </label>
         )}
         <input
@@ -44,7 +44,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
             onFocus={() => setIsOpen(true)}
-            placeholder={isNavbar ? 'Search games...' : ''}
+            placeholder={isNavbar ? 'Search games...' : 'Search'}
         />
             {isOpen && results.length > 0 && (
                 <div className="dropdown is-active">
