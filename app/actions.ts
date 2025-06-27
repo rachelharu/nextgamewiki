@@ -22,6 +22,17 @@ export interface GameDetails {
   platforms: Array<{ platform: { name: string } }>;
 }
 
+export interface Screenshot {
+  image: string;
+  hidden: boolean;
+}
+
+export interface ScreenshotsResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Screenshot[];
+}
 
 interface ApiResponse {
   results: Game[];
@@ -37,6 +48,8 @@ const options = {
   },
   next: { revalidate: 3600 }
 };
+
+const BASE_URL_RAWG_DIRECT = 'https://api.rawg.io/api';
 
 export async function searchGames(searchTerm: string): Promise<Game[]> {
   if (!searchTerm) return [];
@@ -83,5 +96,31 @@ export async function getGameDetails(id: string) {
   } catch (error) {
     console.error('Error fetching game details:', error);
     throw error;
+  }
+}
+
+export async function getGameScreenshots(gamePk: number | string): Promise<Screenshot[]> {
+ if (!gamePk) throw new Error('Game ID is required for screenshots');
+
+  try {
+    const url = new URL(`${BASE_URL_RAWG_DIRECT}/games/${gamePk}/screenshots`);
+    const params = new URLSearchParams({
+      key: process.env.RAWG_API_KEY!
+    });
+    url.search = params.toString();
+
+    const response = await fetch(url.toString());
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Direct RAWG API error in getGameScreenshots for ${gamePk}: ${response.status} - ${errorText}`);
+      throw new Error(`Direct RAWG API error: ${response.status}`);
+    }
+
+    const data = await response.json() as ScreenshotsResponse;
+    return data.results.filter(screenshot => !screenshot.hidden);
+  } catch (error) {
+    console.error(`Error fetching screenshots for game ${gamePk} from direct RAWG API:`, error);
+    return [];
   }
 }

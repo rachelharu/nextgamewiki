@@ -2,7 +2,7 @@
 
 html,
 body {
-  font-family: 'Open Sans';
+  font-family: 'Radio Canada';
   background-color: #07051C!important;
   color: #e4e6eb!important;
   text-align: center;
@@ -23,6 +23,10 @@ figure .image img {
   border-radius: 5px;
 }
 
+.container {
+  max-width: 100% !important;
+}
+
 .box {
   box-shadow: rgba(8, 8, 8, 0.1) 0px 0.5em 1em -0.125em, rgba(8, 8, 8, 0.02) 0px 0px 0px 1px !important;
 }
@@ -33,11 +37,15 @@ figure .image img {
 
 .hero-body {
   justify-content: center;
+  max-width: 100%;
+  padding: 0px;
 }
 
 .navbar {
   display: flex;
   flex-direction: column;
+  padding-left: 30px;
+  padding-right: 20px;
 }
 
 .navInput {
@@ -348,7 +356,6 @@ button.dropdown-item:hover {
   .media-content {
     margin-left: 0px;
   }
-  
 }
 
 @media screen and (max-width: 766px) {

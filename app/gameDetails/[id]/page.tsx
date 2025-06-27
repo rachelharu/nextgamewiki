@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GameDetails from "@/components/GameDetails";
 import { trackGameView } from "../../actions/trackGameViews";
+import { Container } from "@mantine/core";
 
 interface GameDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -17,9 +18,9 @@ export default async function GameDetailsPage({ params }: GameDetailsPageProps) 
     <>
       <Navbar showSearch={true} />
       <div className="hero-body">
-        <div className="container">
+        <Container fluid >
           <GameDetails id={id} />
-        </div>
+        </Container>
       </div>
       <Footer />
     </>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Radio_Canada } from "next/font/google";
+import '@mantine/carousel/styles.css';
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 import "./globals.scss";
@@ -9,8 +10,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 config.autoAddCss = false
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const radioCanada = Radio_Canada({
+  variable: "--font-radio-canada",
   subsets: ["latin"],
 });
 
@@ -36,7 +37,7 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={`${openSans.variable}`}>
+      <body className={`${radioCanada.variable}`}>
         <MantineProvider theme={theme}>
           <main className="hero is-fullheight is-default is-bold">
             {children}
