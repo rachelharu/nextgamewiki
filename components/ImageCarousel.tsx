@@ -50,9 +50,10 @@ if (errorScreenshots) return <div>{errorScreenshots}</div>;
 
 return (
   <Carousel
+    className="image-carousel"
       withIndicators
       withControls
-      controlSize={24}
+      controlSize={48}
       slideSize={{base: '100%', sm: '50%', md: '33.333333%'}}
       slideGap="md"
       emblaOptions={{ loop: true, align: 'start', slidesToScroll: 3 }}
@@ -60,10 +61,10 @@ return (
     {screenshots.map((screenshot) =>  (
     <Carousel.Slide key={screenshot.image}>
         <Image
-            src={screenshot.image}
-            alt={`Screenshot for {gameName}` }
-            height={100}
-          />
+          src={screenshot.image}
+          alt={`Screenshot for {gameName}`}
+          height={100}
+        />
     </Carousel.Slide>
     ))}
     </Carousel>

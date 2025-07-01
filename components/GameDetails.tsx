@@ -17,6 +17,7 @@ export default function GameDetails({ id }: GameDetailsProps) {
     async function loadGameDetails() {
       try {
         const details = await getGameDetails(id);
+        // console.log(details);
         setGameData(details);
         setLoading(false);
       } catch (error) {
@@ -34,6 +35,7 @@ export default function GameDetails({ id }: GameDetailsProps) {
   const {
     name,
     background_image,
+    background_image_additional,
     description_raw,
     genres,
     publishers,
@@ -45,8 +47,8 @@ export default function GameDetails({ id }: GameDetailsProps) {
     platforms
   } = gameData;
 
-  return (
-    <>
+return (
+  <>
     <div className={classes.hero}
       style={{
         backgroundImage: `
@@ -58,7 +60,7 @@ export default function GameDetails({ id }: GameDetailsProps) {
         backgroundRepeat: 'no-repeat',
       }}>
       <Overlay
-        gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, .15) 40%)"
+        gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, .10) 40%)"
         opacity={1}
         zIndex={0}
       />
@@ -70,73 +72,25 @@ export default function GameDetails({ id }: GameDetailsProps) {
       </Container>
     </div>
 
-    <GameDetailsContainer id={id} gameName={name} />
-    
-
-    {/* <Container size="sm" bd="5px solid black" display="block">
-      <Title order={3} mb="sm">Genres: </Title>
-        {genres?.map((g) => 
-          <Button variant="light" color="indigo" radius="lg">{g.name}</Button>
-        )}
-    </Container> */}
-</>
-    // The commented-out code below is the original HTML structure that will be replaced with Mantine components.
-          // <div id="summary">
-    //  <div className="card">
-    //   <div className="card-content">
-    //   <div className="content">
-    //   <section className="dev-hero">
-    //     <div className="hero-body">
-    //       <p className="herotitle" id="hero-title">Publisher:</p>
-    //       <p className="dev-subtitle">{publishers?.[0]?.name}</p>
-    //       <p className="herotitle" id="hero-title">Developers:</p>
-    //       <p className="dev-subtitle">{developers?.map((d) => d.name).join(', ')}</p>
-    //     </div>
-    //   </section>
-  
-    //   <nav className="level">
-    //     <div className="level-item has-text-centered">
-    //       <div>
-    //         <p className="heading">ESRB:</p>
-    //         <p className="title">{esrb_rating === null ? 'N/A' : esrb_rating.name}</p>
-    //       </div>
-    //     </div>
-    //     <div className="level-item has-text-centered">
-    //       <div>
-    //         <p className="heading">Released:</p>
-    //         <p className="title"> {released === null
-    //             ? 'N/A'
-    //             : new Intl.DateTimeFormat('en-US', {
-    //                 month: '2-digit',
-    //                 day: '2-digit',
-    //                 year: 'numeric',
-    //               }).format(new Date(released))}</p>
-    //       </div>
-    //     </div>
-    //     <div className="level-item has-text-centered">
-    //       <div>
-    //         <p className="heading">
-    //           <a href={metacritic_url}>Metacritic Score:</a>
-    //         </p>
-    //         <p className="title">{metacritic === null ? 'N/A' : metacritic}</p>
-    //       </div>
-    //     </div>
-    //   </nav>
-    //   </div>
-    //   </div>
-    //  </div>
-
-    //   <article className="message">
-    //     <div className="message-header">
-    //       <p>About</p>
-    //     </div>
-    //     <div className="message-body">{description_raw}</div>
-    //   </article>
-
-    //   <article className="notification">
-    //     <h5>Platforms: </h5>
-    //     <h4>{platforms?.map((p) => p.platform.name).join(', ')}</h4>
-    //   </article>
-    // </div>
- 
-  )};
+    <GameDetailsContainer 
+      id={id} 
+      gameName={name} 
+      description={description_raw} 
+      descImg={background_image_additional}
+      genres={genres?.map((g) => g.name)}
+      publishers={publishers?.map((p) => p.name)}
+      developers={developers?.map((d) => d.name)}
+      released={released === null
+                ? 'N/A'
+                : new Intl.DateTimeFormat('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  }).format(new Date(released))}
+      esrb_rating={esrb_rating === null ? 'N/A' : esrb_rating.name}
+      metacritic={metacritic === null ? -1 : metacritic}
+      metacritic_url={metacritic_url}
+      platforms={platforms?.map((p) => ({ name: p.platform.name }))}
+      />
+  </>
+)};

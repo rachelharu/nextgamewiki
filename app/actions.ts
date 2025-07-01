@@ -11,6 +11,7 @@ export interface GameDetails {
   id: number;
   name: string;
   background_image: string;
+  background_image_additional: string;
   description_raw: string;
   genres: Array<{ name: string }>;
   publishers: Array<{ name: string }>;

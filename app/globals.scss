@@ -4,7 +4,7 @@ html,
 body {
   font-family: 'Radio Canada';
   background-color: #07051C!important;
-  color: #e4e6eb!important;
+  color: #dee0e6!important;
   text-align: center;
 }
 
@@ -41,6 +41,10 @@ figure .image img {
   padding: 0px;
 }
 
+.navbar-brand {
+  margin-left: -30px!important;
+}
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -62,6 +66,10 @@ figure .image img {
   position: relative;
 }
 
+:global(.mantine-Table-tr) {
+  border-bottom: none !important;
+}
+
 .input:hover {
   border-color: rgb(69, 75, 78);
 }
@@ -76,6 +84,13 @@ figure .image img {
 
 .showBox {
   animation: fadeIn 5.5s;
+}
+
+.image-carousel {
+  border-radius: var(--mantine-radius-md);
+  box-shadow:
+    0px 1px 3px rgba(0, 0, 0, 0.08),
+    0px 5px 15px rgba(0, 0, 0, 0.12);
 }
 
 .input {
@@ -142,6 +157,14 @@ figure .image img {
   overflow-x: hidden;
   /*     overflow-y: hidden; */
   max-width: 100%;
+}
+
+.text-shadow {
+  text-shadow: '2px 2px 4px rgba(0, 0, 0, 0.3)';
+}
+
+.text-indent {
+  text-indent: 1em;
 }
 
 .title .icon {

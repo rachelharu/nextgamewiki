@@ -18,7 +18,7 @@ export default async function GameDetailsPage({ params }: GameDetailsPageProps) 
     <>
       <Navbar showSearch={true} />
       <div className="hero-body">
-        <Container fluid >
+        <Container fluid p="0" >
           <GameDetails id={id} />
         </Container>
       </div>

@@ -14,7 +14,7 @@ export default function Navbar({ showSearch = true }: NavbarProps) {
         <div className="container" id="nav">
           <div className={`navbar-brand ${styles.logoContainer}`}>
             <Link className="navbar-item" href="/">
-              <Image 
+              <Image
                 id="logo"
                 src="/game-control.png"
                 alt="Logo"
