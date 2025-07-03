@@ -14,6 +14,7 @@ interface GameDetailsContentProps {
   esrb_rating?: string;
   metacritic?: number;
   metacritic_url?: string;
+  website?: string;
 }
 
 const GameDetailsContent = ({
@@ -26,16 +27,15 @@ const GameDetailsContent = ({
    publishers,
    developers,
    esrb_rating,
-   metacritic,
-   metacritic_url
+   website
    }: GameDetailsContentProps) => {
   return (
-    <Grid mt="xl" ta="left" gutter="xs">
+    <Grid mb={100} mt="xl" ta="left" gutter="xs">
       <Grid.Col span={{ base: 12, md: 7 }} pr="25" >
         <Title className="text-shadow" lh="md" fw={600} order={5}>Description</Title>
          <Divider my="sm" size="xs" />
           <Image mt="lg" src={descImg}/>
-           <Text mt={35} size="md" fw={400} className="text-shadow" >
+           <Text mt={35} size="md" fw={400} lts={1} className="text-shadow" >
               {description.split('.').slice(0, 6).join('. ') + '.'}
            </Text>
       </Grid.Col>
@@ -49,8 +49,7 @@ const GameDetailsContent = ({
               publishers={publishers?.map((publisher) => publisher.name)}
               developers={developers?.map((developer) => developer.name)}
               esrb_rating={esrb_rating}
-              metacritic={metacritic}
-              metacritic_url={metacritic_url}
+              website={website}
             />
       </Grid.Col>
     </Grid>

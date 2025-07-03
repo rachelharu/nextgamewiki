@@ -44,7 +44,9 @@ export default function GameDetails({ id }: GameDetailsProps) {
     esrb_rating,
     metacritic,
     metacritic_url,
-    platforms
+    metacritic_platforms,
+    platforms,
+    website
   } = gameData;
 
 return (
@@ -90,7 +92,9 @@ return (
       esrb_rating={esrb_rating === null ? 'N/A' : esrb_rating.name}
       metacritic={metacritic === null ? -1 : metacritic}
       metacritic_url={metacritic_url}
+      metacritic_platforms={metacritic_platforms}
       platforms={platforms?.map((p) => ({ name: p.platform.name }))}
+      website={website ? website : 'N/A'}
       />
   </>
 )};

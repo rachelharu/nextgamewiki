@@ -51,9 +51,9 @@ if (errorScreenshots) return <div>{errorScreenshots}</div>;
 return (
   <Carousel
     className="image-carousel"
-      withIndicators
+      withIndicators={false}
       withControls
-      controlSize={48}
+      controlSize={32}
       slideSize={{base: '100%', sm: '50%', md: '33.333333%'}}
       slideGap="md"
       emblaOptions={{ loop: true, align: 'start', slidesToScroll: 3 }}
