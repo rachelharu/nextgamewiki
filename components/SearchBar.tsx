@@ -1,7 +1,9 @@
 'use client';
 import Image from 'next/image';
+import { useDebouncedValue } from '@mantine/hooks';
 import { searchGames, type Game } from '@/app/actions';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 interface SearchBarProps {
     variant: 'navbar' | 'default';
@@ -11,18 +13,71 @@ export default function SearchBar({ variant }: SearchBarProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [results, setResults] = useState<Game[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
     const isNavbar = variant === 'navbar';
 
-    const handleSearch = async (value: string) => {
-        setSearchTerm(value);
-        if (value.length < 3 ) return;
+    const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
+
+    useEffect(() => {
+        const performSearch = async () => {
+            if (!debouncedSearchTerm.trim()) {
+                setResults([]);
+                setIsOpen(false);
+                setIsLoading(false);
+                return;
+            }
+            setIsLoading(true);
+            setError(null);
+            setIsOpen(true);
 
         try {
-            const games = await searchGames(value);
-            setResults(games);
+            const games = await searchGames(debouncedSearchTerm);
+
+            const sortedByName = [...games].sort((a, b) => {
+                const searchTermLower = debouncedSearchTerm.toLowerCase();
+                const nameA = a.name.toLowerCase() === searchTermLower;
+                const nameB = b.name.toLowerCase() === searchTermLower;
+
+                if (nameA && !nameB) {
+                    return -1
+                }
+                if (!nameA && nameB) {
+                    return 1
+                }
+
+                const aStartsWith = a.name.toLowerCase().startsWith(searchTermLower);
+                const bStartsWith = b.name.toLowerCase().startsWith(searchTermLower);
+
+                if (aStartsWith && !bStartsWith) {
+                    return -1
+                }
+                if (!aStartsWith && bStartsWith) {
+                    return 1
+                }
+                return 0
+            });
+            setResults(sortedByName.slice(0, 20));
+        } catch (err) {
+            console.error('Search failed:', err);
+                setError("Failed to load games. Please try again.");
+                setResults([]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        performSearch();
+    }, [debouncedSearchTerm]);
+
+    const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setSearchTerm(value);
+        if (value.length >= 3 ) {
             setIsOpen(true);
-        } catch (error) {
-            console.error('Search failed:', error);
+        } else {
+            setIsOpen(false);
+            setResults([]);
         }
     };
 
@@ -42,8 +97,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
         <input
             className={`input ${isNavbar ? 'is-small' : ''}`}
             value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-            onFocus={() => setIsOpen(true)}
+            onChange={handleSearch}
             placeholder={isNavbar ? 'Search games...' : 'Search'}
         />
             {isOpen && results.length > 0 && (

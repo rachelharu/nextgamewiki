@@ -82,7 +82,7 @@ export async function searchGames(searchTerm: string): Promise<Game[]> {
     }
 
     const data = await response.json() as ApiResponse;
-    return data.results.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    return data.results;
   } catch (error) {
     console.error('Error fetching games:', error);
     return [];
