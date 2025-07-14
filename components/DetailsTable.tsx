@@ -66,7 +66,7 @@ const DetailsTable = (props: DetailsTableProps) => {
                   if (row.key === 'genres') {
                     return props.genres && props.genres.length
                       ? props.genres.map((g, i) => (
-                        <Anchor key={g.name} c="#dee0e6" underline="always">
+                        <Anchor key={g.name} c="#dee0e6" underline="never">
                           <span>
                             <span style={{ textDecoration: 'underline' }}>{g.name}</span>
                             {i < props.genres.length - 1 && ' - '}
