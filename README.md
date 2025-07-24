@@ -1,4 +1,4 @@
-###GameLookup
+#### GameLookup
 A full-stack web application for discovering and tracking video games, built as a technical showcase.
 
 🛠️ Tech Stack
@@ -40,4 +40,6 @@ Scalability: Containerized deployment on AWS infrastructure
 DevOps: Environment variable management and production configuration
 
 This project demonstrates full-stack development skills including React/Next.js, database design, API integration, and cloud deployment
+## 🚀 CI/CD Pipeline
+<img width="1847" height="725" alt="Screenshot from 2025-07-23 17-18-43" src="https://github.com/user-attachments/assets/3d2e5889-f235-4c20-9160-41357c1da09b" />
 
