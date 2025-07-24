@@ -1,5 +1,5 @@
 #### GameLookup
-A full-stack web application for discovering and tracking video games, built as a technical showcase.
+A full-stack web application for discovering video games, built as a technical showcase.
 
 🛠️ Tech Stack
 Frontend:
