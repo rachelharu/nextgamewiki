@@ -16,13 +16,13 @@ Backend:
 
 Infrastructure & DevOps:
 
-- AWS ECS/Fargate: Container orchestration and auto-scaling
-- AWS ECR: Docker image registry and versioning
-- AWS CodePipeline: Managed CI/CD
-- AWS VPC: Custom networking and security groups
-- AWS Load Balancer: Traffic distribution and SSL termination
-- AWS CloudWatch: Logging, monitoring, and alerting
-- Docker: Multi-stage builds and production optimization
+- AWS ECS/Fargate
+- AWS ECR
+- AWS CodePipeline
+- AWS VPC
+- AWS Load Balancer
+- AWS CloudWatch
+- Docker
 
 ✨ Key Features
 
