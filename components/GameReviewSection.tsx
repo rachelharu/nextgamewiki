@@ -9,7 +9,6 @@ interface GameReviewSectionProps {
   metacritic_platforms: { metascore: number; url: string; platform: { id: number; name: string; slug: string } }[];
 }
 
-//display different "rating" based on the metacritic score
 function selectRating(metacritic:number): string {
   if (metacritic >= 90) {
     return "Universal Acclaim"
@@ -24,7 +23,6 @@ function selectRating(metacritic:number): string {
   }
 }
 
-const GameReviewSection = ({ metacritic }: GameReviewSectionProps) => {
 function getColor(metacritic:number): string {
   if (metacritic >= 75) {
     return "Green";
@@ -34,6 +32,8 @@ function getColor(metacritic:number): string {
     return "Red";
   }
 }
+
+const GameReviewSection = ({ metacritic }: GameReviewSectionProps) => {
   return (
     <Container  mt={20} mb={20} size="lg">
       <SimpleGrid ml="md" mr="md" cols={{ base: 1, sm: 2 }} spacing={50}>
@@ -65,7 +65,7 @@ function getColor(metacritic:number): string {
               thickness={11}
               roundCaps
               sections={[
-                { value: Number(metacritic), color: getColor(metacritic) },
+                { value: metacritic, color: getColor(metacritic) },
               ]}
               rootColor="#87878b" 
             />
