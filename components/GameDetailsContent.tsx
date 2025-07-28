@@ -36,7 +36,7 @@ const GameDetailsContent = ({
       <Grid.Col span={{ base: 12, md: 7 }} pr="25" >
         <Title className="text-shadow" lh="md" fw={600} order={5}>Description</Title>
          <Divider my="sm" size="xs" />
-          <Image mt="lg" src={descImg}/>
+          <Image mt="lg" src={descImg || ''}/>
            <Text mt={35} size="md" fw={400} lts={1} className="text-shadow" >
               {(description.match(regex) || []).slice(0, 6).join(' ').trim()}
            </Text>
