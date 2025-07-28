@@ -1,14 +1,12 @@
 import Link from 'next/link';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Avatar, Badge, Button, Box, Card, Group, Image, SimpleGrid, Text } from '@mantine/core';
+import { Badge, Box, Card, Group, Image, SimpleGrid, Text } from '@mantine/core';
 import classes from './trending.module.css';
 import { db } from "@/lib/db";
 import { getGameDetails } from "@/app/actions";
 
 export const dynamic = 'force-dynamic';
-
-const Spacing = () => <SimpleGrid spacing="md" />;
 
 async function getTopGames() {
     return await db.trackedGame.findMany({

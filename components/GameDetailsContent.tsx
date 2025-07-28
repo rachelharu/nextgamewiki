@@ -17,6 +17,8 @@ interface GameDetailsContentProps {
   website?: string;
 }
 
+const regex = new RegExp("[^!.?]+[!.?]+", "g");
+
 const GameDetailsContent = ({
    id,
    description,
@@ -36,7 +38,7 @@ const GameDetailsContent = ({
          <Divider my="sm" size="xs" />
           <Image mt="lg" src={descImg}/>
            <Text mt={35} size="md" fw={400} lts={1} className="text-shadow" >
-              {description.split('.').slice(0, 6).join('. ') + '.'}
+              {(description.match(regex) || []).slice(0, 6).join(' ').trim()}
            </Text>
       </Grid.Col>
       <Grid.Col span={{ base: 12, md: 5 }} pl="5">

@@ -27,7 +27,7 @@ const data = [
     },
   },
   { title: 'ESRB:', key: 'esrb_rating' },
-  { title: 'Links:', key: 'Official website', url: 'website' },
+  { title: 'Links:', key: 'website', url: 'website' },
 ];
 
 function isRowEmpty(row: any, props: DetailsTableProps) {
@@ -62,7 +62,7 @@ const DetailsTable = (props: DetailsTableProps) => {
                 ? row.render(props)
                 : 
                  (() => {
-                  // Custom rendering for genres (array of objects)
+                  // Custom rendering for genres
                   if (row.key === 'genres') {
                     return props.genres && props.genres.length
                       ? props.genres.map((g, i) => (
@@ -75,7 +75,7 @@ const DetailsTable = (props: DetailsTableProps) => {
                         ))
                       : 'N/A';
                   }
-                  // Custom rendering for platforms (array of objects)
+                  // Custom rendering for platforms
                   if (row.key === 'platforms') {
                     return props.platforms && props.platforms.length
                       ? props.platforms.map((p, i) => (
@@ -88,7 +88,7 @@ const DetailsTable = (props: DetailsTableProps) => {
                         ))
                       : 'N/A';
                   }
-                  // Default rendering for other fields
+                  // rendering for other fields
                   const value = props[row.key as keyof DetailsTableProps];
                   return value !== undefined && value !== null && value !== ''
                     ? String(value)

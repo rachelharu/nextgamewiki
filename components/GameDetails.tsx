@@ -1,13 +1,15 @@
 'use client';
 import { getGameDetails, type GameDetails } from '@/app/actions';
 import { useEffect, useState } from 'react';
-import { Button, Card, Container, Image, Overlay, SimpleGrid, Text, Title } from '@mantine/core';
+import { Container, Overlay, Text, Title } from '@mantine/core';
 import classes from './GameDetails.module.css';
 import GameDetailsContainer from './GameDetailsContainer';
 
 interface GameDetailsProps {
   id: string;
 }
+
+const regex = new RegExp("[^!.?]+[!.?]+", "g");
 
 export default function GameDetails({ id }: GameDetailsProps) {
   const [gameData, setGameData] = useState<GameDetails | null>(null);
@@ -69,7 +71,7 @@ return (
       <Container className={classes.container} size="md">
         <Title fw={700} className={classes.title}>{name}</Title>
         <Text className={classes.description} size="xl" mb={100}>
-          {description_raw?.split('.', 1).join('.') + '.'}
+          {((description_raw.match(regex) || []).slice(0, 1).join(' ').trim())}
         </Text>
       </Container>
     </div>
