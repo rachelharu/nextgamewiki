@@ -12,29 +12,27 @@ Backend:
 
 - Node.js API routes
 - Prisma ORM with PostgreSQL
-- External API RAWG integration 
+- External API integration
 
 Infrastructure & DevOps:
 
-- AWS ECS/Fargate
-- AWS ECR
+- AWS ECS
+- AWS EC2
 - AWS CodePipeline
 - AWS VPC
-- AWS Load Balancer
-- AWS CloudWatch
+- AWS CloudFormation
 - Docker
 
 ✨ Key Features
 
 - Real-time game data fetching and display
 - Responsive design across all devices
-- Database integration for game tracking
+- Database integration
 - Production-ready deployment
 
 🏗️ Architecture Highlights
 
 - Database Design: Normalized schema with Prisma ORM
-- API Integration: Efficient third-party API consumption with error handling
 - Performance: Server-side rendering with Next.js
 - Scalability: Containerized deployment on AWS infrastructure
 - DevOps: Environment variable management and production configuration
