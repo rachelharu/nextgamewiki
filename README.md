@@ -9,7 +9,6 @@ Frontend:
 
 Backend:
 
-- Node.js API routes
 - Prisma ORM with PostgreSQL
 - External API integration
 
