@@ -44,11 +44,13 @@ export default async function TrendingPage() {
             cols={{ base:1, sm:2, lg:5 }}
             spacing={{ base: 10, sm: 'md'}}
           >
-          {gameDetails.map(game => (
+          {gameDetails.map((game) => (
           <Card
+            key={game.id}
             padding={0}
             radius="md"
-            className={classes.card}>
+            className={classes.card}
+            data-testid="trending-card">
               <Box mb="sm" style={{ height: 180, overflow: 'hidden' }}>
                 <Image
                   src={game.background_image}
@@ -61,7 +63,7 @@ export default async function TrendingPage() {
 
             <Group ml="xs" mr="xs" gap="xs" mb="xs" wrap="wrap">
               {game.genres.slice(0,2).map((genre: { name: string }) => (
-                  <Badge variant="light">{genre.name}</Badge>
+                  <Badge key={genre.name} variant="light">{genre.name}</Badge>
               ))}
             </Group>
             <Text
