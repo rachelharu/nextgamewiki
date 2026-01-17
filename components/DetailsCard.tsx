@@ -1,89 +1,106 @@
-import React from 'react'
-import { Divider, Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
-import DetailsTable from './DetailsTable';
+import React from 'react';
+import { Anchor, Table, Text } from '@mantine/core';
+import classes from './DetailsCard.module.css';
 
 interface DetailsCardProps {
-  id: string;
-  description: string;
-  descImg: string;
   genres: { name: string }[];
-  platforms: { name: string }[];
-  released?: string;
-  publishers?: { name: string }[];
-  developers?: { name: string }[];
+  releaseDate?: string;
   esrb_rating?: string;
-  metacritic?: number;
-  metacritic_url?: string;
+  publishers?: string[];
+  developers?: string[];
+  platforms?: { name: string }[];
   website?: string;
 }
 
-const DetailsCard = ({
-   id,
-   description,
-   descImg,
-   genres,
-   platforms,
-   released,
-   publishers,
-   developers,
-   esrb_rating,
-   website
-  }: DetailsCardProps) => {
-  const [expanded, setExpanded] = React.useState(false);
+const data = [
+  { title: 'Genre:', key: 'genres' },
+  { title: 'Platforms:', key: 'platforms' },
+  { title: 'Release date:', key: 'releaseDate' },
+  { title: 'Company:', 
+    render: (props: DetailsCardProps) => {
+      const devs = props.developers?.join(', ') || '';
+      const pubs = props.publishers?.join(', ') || '';
+      if (devs && pubs) return `${devs} | ${pubs}`;
+      if (devs) return devs;
+      if (pubs) return pubs;
+      return 'N/A'; 
+    },
+  },
+  { title: 'ESRB:', key: 'esrb_rating' },
+  { title: 'Links:', key: 'website', url: 'website' },
+];
 
-  const PREVIEW_CHARS = 350;
-  const isTruncated = !!(description && description.length > PREVIEW_CHARS);
-  const previewText = description ? description.slice(0, PREVIEW_CHARS) : '';
-
-  return (
-    // Description
-    <Grid mb={100} mt="xl" ta="left" gutter="xs">
-      <Grid.Col span={{ base: 12, md: 7 }} pr="25" >
-        <Title className="text-shadow" lh="md" fw={600} order={5}>Description</Title>
-        <div
-          style={{
-            height: 3,
-            borderRadius: 3,
-            margin: '6px 0 12px',
-            background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
-          }}
-        />
-          <Image mt="lg" src={descImg || ''}/>
-           <Text mt={35} size="md" fw={400} lts={1} className="text-shadow">
-             {expanded || !isTruncated ? description : `${previewText.trim()}…`}
-           </Text>
-          {isTruncated && (
-            <Button variant="subtle" size="xs" mt="md" onClick={() => setExpanded((s) => !s)}>
-              {expanded ? 'Show less' : 'Read more'}
-            </Button>
-          )}
-      </Grid.Col>
-      {/* Game Details */}
-      <Grid.Col span={{ base: 12, md: 5 }} pl="5">
-        <Paper p="md" radius="md" shadow="sm" withBorder style={{ background: '#202031', color: '#ffffff', borderColor: 'rgba(255,255,255,0.06)' }}>
-          <Title lh="md" fw={600} order={5}>Game details</Title>
-          <div
-            style={{
-              height: 3,
-              borderRadius: 3,
-              margin: '6px 0 12px',
-              background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
-            }}
-          />
-
-          <DetailsTable
-            genres={genres}
-            platforms={platforms}
-            releaseDate={released}
-            publishers={publishers?.map((publisher) => publisher.name)}
-            developers={developers?.map((developer) => developer.name)}
-            esrb_rating={esrb_rating}
-            website={website}
-          />
-        </Paper>
-      </Grid.Col>
-    </Grid>
-  )
+function isRowEmpty(row: any, props: DetailsCardProps) {
+  if ('render' in row && typeof row.render === 'function') {
+    const rendered = row.render(props);
+    return rendered === undefined || rendered === null || rendered === '' || rendered === 'N/A';
+  }
+  if (row.key === 'genres') {
+    return !props.genres || props.genres.length === 0;
+  } 
+  if (row.key === 'platforms') {
+    return !props.platforms || props.platforms.length === 0;
+  }
+  const value = props[row.key as keyof DetailsCardProps];
+  return value === undefined || value === null || value === '' || value === 'N/A';
 }
 
-export default DetailsCard
+const DetailsCard = (props: DetailsCardProps) => {
+  return(
+    <Table verticalSpacing="xs" withRowBorders={false}>
+      <Table.Tbody>
+        {data
+        .filter(row => !isRowEmpty(row, props))
+        .map((row) => (
+          <Table.Tr key={row.title} >
+            <Table.Td pt="lg" pb="lg">
+              <Text fz="md" fw={300}>{row.title}</Text>
+            </Table.Td>
+            <Table.Td pt="lg" pb="lg">
+              <Text ta="left" fz="md" className={classes.text}>
+                {'render' in row && typeof row.render === 'function'
+                ? row.render(props)
+                : 
+                 (() => {
+                  // Custom rendering for genres
+                  if (row.key === 'genres') {
+                    return props.genres && props.genres.length
+                      ? props.genres.map((g, i) => (
+                        <Anchor key={g.name} c="#dee0e6" underline="never">
+                          <span>
+                            <span style={{ textDecoration: 'underline' }}>{g.name}</span>
+                            {i < props.genres.length - 1 && ' - '}
+                          </span>
+                        </Anchor>
+                        ))
+                      : 'N/A';
+                  }
+                  // Custom rendering for platforms
+                  if (row.key === 'platforms') {
+                    return props.platforms && props.platforms.length
+                      ? props.platforms.map((p, i) => (
+                        <Anchor key={p.name} c="#dee0e6" underline="never">
+                          <span>
+                            {p.name}
+                            {i < (props.platforms?.length ?? 0) - 1 && ', '}
+                          </span>
+                        </Anchor>
+                        ))
+                      : 'N/A';
+                  }
+                  // rendering for other fields
+                  const value = props[row.key as keyof DetailsCardProps];
+                  return value !== undefined && value !== null && value !== ''
+                    ? String(value)
+                    : 'N/A';
+                })()}
+              </Text>
+            </Table.Td>
+          </Table.Tr>
+        ))}
+      </Table.Tbody>
+    </Table>
+  );
+};
+
+export default DetailsCard;

@@ -1,66 +1,89 @@
-import { Container, Divider, Title } from '@mantine/core';
-import ImageCarousel from '@/components/ImageCarousel';
-import DetailsCard from '@/components/DetailsCard';
-import ReviewSection from '@/components/ReviewSection';
+import React from 'react'
+import { Divider, Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
+import DetailsCard from './DetailsCard';
 
 interface DetailsBodyProps {
   id: string;
-  gameName: string;
   description: string;
   descImg: string;
-  genres: string[];
-  developers: string[];
-  publishers: string[];
-  released: string;
-  esrb_rating: string;
-  metacritic: number;
-  metacritic_url: string;
-  metacritic_platforms: { metascore: number; url: string; platform: { id: number; name: string; slug: string } }[];
+  genres: { name: string }[];
   platforms: { name: string }[];
-  website: string;
+  released?: string;
+  publishers?: { name: string }[];
+  developers?: { name: string }[];
+  esrb_rating?: string;
+  metacritic?: number;
+  metacritic_url?: string;
+  website?: string;
 }
 
-export default function DetailsBody({
-  id,
-  gameName,
-  description,
-  descImg,
-  genres,
-  platforms,
-  released,
-  publishers,
-  developers,
-  esrb_rating,
-  metacritic,
-  metacritic_url,
-  metacritic_platforms,
-  website
-  }: DetailsBodyProps) {
+const DetailsBody = ({
+   id,
+   description,
+   descImg,
+   genres,
+   platforms,
+   released,
+   publishers,
+   developers,
+   esrb_rating,
+   website
+  }: DetailsBodyProps) => {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const PREVIEW_CHARS = 350;
+  const isTruncated = !!(description && description.length > PREVIEW_CHARS);
+  const previewText = description ? description.slice(0, PREVIEW_CHARS) : '';
+
   return (
-    <Container pb="25" pl={150} pr={150} pt={25} fluid >
-      <ImageCarousel id={id} gameName={gameName} />
-      <DetailsCard
-        id={id} 
-        description={description} 
-        descImg={descImg}
-        genres={genres.map((genre) => ({ name: genre }))}
-        platforms={platforms.map((platform) => ({ name: platform.name }))}
-        released={released}
-        publishers={publishers.map((publisher) => ({ name: publisher }))}
-        developers={developers.map((developer) => ({ name: developer }))}
-        esrb_rating={esrb_rating}
-        metacritic={metacritic}
-        metacritic_url={metacritic_url}
-        website={website}
+    // Description
+    <Grid mb={100} mt="xl" ta="left" gutter="xs">
+      <Grid.Col span={{ base: 12, md: 7 }} pr="25" >
+        <Title className="text-shadow" lh="md" fw={600} order={5}>Description</Title>
+        <div
+          style={{
+            height: 3,
+            borderRadius: 3,
+            margin: '6px 0 12px',
+            background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
+          }}
         />
-      <Title ta="left" lh="md" fw={600} order={5}>Critics reviews</Title>  
-      <Divider my="sm" size="xs" />
-      <ReviewSection
-        metacritic_platforms={metacritic_platforms}
-        metacritic={metacritic}
-        metacritic_url={metacritic_url}
-       />
-      <Divider my="sm" size="xs" />
-    </Container>
-  );
+          <Image mt="lg" src={descImg || ''}/>
+           <Text mt={35} size="md" fw={400} lts={1} className="text-shadow">
+             {expanded || !isTruncated ? description : `${previewText.trim()}…`}
+           </Text>
+          {isTruncated && (
+            <Button variant="subtle" size="xs" mt="md" onClick={() => setExpanded((s) => !s)}>
+              {expanded ? 'Show less' : 'Read more'}
+            </Button>
+          )}
+      </Grid.Col>
+      {/* Game Details */}
+      <Grid.Col span={{ base: 12, md: 5 }} pl="5">
+        <Paper p="md" radius="md" shadow="sm" withBorder style={{ background: '#202031', color: '#ffffff', borderColor: 'rgba(255,255,255,0.06)' }}>
+          <Title lh="md" fw={600} order={5}>Game details</Title>
+          <div
+            style={{
+              height: 3,
+              borderRadius: 3,
+              margin: '6px 0 12px',
+              background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
+            }}
+          />
+
+          <DetailsCard
+            genres={genres}
+            platforms={platforms}
+            releaseDate={released}
+            publishers={publishers?.map((publisher) => publisher.name)}
+            developers={developers?.map((developer) => developer.name)}
+            esrb_rating={esrb_rating}
+            website={website}
+          />
+        </Paper>
+      </Grid.Col>
+    </Grid>
+  )
 }
+
+export default DetailsBody
