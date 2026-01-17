@@ -37,7 +37,7 @@ export default function GameDetailsContainer({
   website
   }: GameDetailsContainerProps) {
   return (
-    <Container pb="25" pl={150} pr={150} pt={25} fluid bg="#202031">
+    <Container pb="25" pl={150} pr={150} pt={25} fluid >
       <ImageCarousel id={id} gameName={gameName} />
       <GameDetailsContent
         id={id} 
