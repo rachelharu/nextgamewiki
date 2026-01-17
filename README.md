@@ -1,3 +1,4 @@
+## Overview
 #### GameLookup
 A full-stack web application for discovering video games, built as a technical showcase.
 
