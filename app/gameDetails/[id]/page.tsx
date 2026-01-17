@@ -1,6 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import GameDetails from "@/components/GameDetails";
+import DetailsPage from "@/components/DetailsPage";
 import { trackGameView } from "../../actions/trackGameViews";
 import { Container } from "@mantine/core";
 
@@ -19,7 +19,7 @@ export default async function GameDetailsPage({ params }: GameDetailsPageProps) 
       <Navbar showSearch={true} />
       <div className="hero-body">
         <Container fluid p="0" >
-          <GameDetails id={id} />
+          <DetailsPage id={id} />
         </Container>
       </div>
       <Footer />

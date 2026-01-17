@@ -2,7 +2,7 @@ import React from 'react'
 import { Divider, Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
 import DetailsTable from './DetailsTable';
 
-interface GameDetailsContentProps {
+interface DetailsCardProps {
   id: string;
   description: string;
   descImg: string;
@@ -17,7 +17,7 @@ interface GameDetailsContentProps {
   website?: string;
 }
 
-const GameDetailsContent = ({
+const DetailsCard = ({
    id,
    description,
    descImg,
@@ -28,7 +28,7 @@ const GameDetailsContent = ({
    developers,
    esrb_rating,
    website
-  }: GameDetailsContentProps) => {
+  }: DetailsCardProps) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const PREVIEW_CHARS = 350;
@@ -86,4 +86,4 @@ const GameDetailsContent = ({
   )
 }
 
-export default GameDetailsContent
+export default DetailsCard

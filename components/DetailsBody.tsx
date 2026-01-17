@@ -1,9 +1,9 @@
 import { Container, Divider, Title } from '@mantine/core';
 import ImageCarousel from '@/components/ImageCarousel';
-import GameDetailsContent from '@/components/GameDetailsContent';
-import GameReviewSection from '@/components/GameReviewSection';
+import DetailsCard from '@/components/DetailsCard';
+import ReviewSection from '@/components/ReviewSection';
 
-interface GameDetailsContainerProps {
+interface DetailsBodyProps {
   id: string;
   gameName: string;
   description: string;
@@ -20,7 +20,7 @@ interface GameDetailsContainerProps {
   website: string;
 }
 
-export default function GameDetailsContainer({
+export default function DetailsBody({
   id,
   gameName,
   description,
@@ -35,11 +35,11 @@ export default function GameDetailsContainer({
   metacritic_url,
   metacritic_platforms,
   website
-  }: GameDetailsContainerProps) {
+  }: DetailsBodyProps) {
   return (
     <Container pb="25" pl={150} pr={150} pt={25} fluid >
       <ImageCarousel id={id} gameName={gameName} />
-      <GameDetailsContent
+      <DetailsCard
         id={id} 
         description={description} 
         descImg={descImg}
@@ -55,7 +55,7 @@ export default function GameDetailsContainer({
         />
       <Title ta="left" lh="md" fw={600} order={5}>Critics reviews</Title>  
       <Divider my="sm" size="xs" />
-      <GameReviewSection
+      <ReviewSection
         metacritic_platforms={metacritic_platforms}
         metacritic={metacritic}
         metacritic_url={metacritic_url}

@@ -2,16 +2,16 @@
 import { getGameDetails, type GameDetails } from '@/app/actions';
 import { useEffect, useState } from 'react';
 import { Container, Overlay, Text, Title } from '@mantine/core';
-import classes from './GameDetails.module.css';
-import GameDetailsContainer from './GameDetailsContainer';
+import classes from './Details.module.css';
+import DetailsBody from './DetailsBody';
 
-interface GameDetailsProps {
+interface DetailsPageProps {
   id: string;
 }
 
 const regex = new RegExp("[^!.?]+[!.?]+", "g");
 
-export default function GameDetails({ id }: GameDetailsProps) {
+export default function DetailsPage({ id }: DetailsPageProps) {
   const [gameData, setGameData] = useState<GameDetails | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -76,7 +76,7 @@ return (
       </Container>
     </div>
 
-    <GameDetailsContainer 
+    <DetailsBody 
       id={id} 
       gameName={name} 
       description={description_raw} 

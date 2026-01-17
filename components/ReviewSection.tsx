@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, RingProgress, SimpleGrid, Text } from '@mantine/core';
 import Image from 'next/image';
-import classes from './GameReviewSection.module.css';
+import classes from './ReviewSection.module.css';
 
-interface GameReviewSectionProps {
+interface ReviewSectionProps {
   metacritic: number;
   metacritic_url: string;
   metacritic_platforms: { metascore: number; url: string; platform: { id: number; name: string; slug: string } }[];
@@ -33,7 +33,7 @@ function getColor(metacritic:number): string {
   }
 }
 
-const GameReviewSection = ({ metacritic }: GameReviewSectionProps) => {
+const ReviewSection = ({ metacritic }: ReviewSectionProps) => {
   return (
     <Container  mt={20} mb={20} size="lg">
       <SimpleGrid ml="md" mr="md" cols={{ base: 1, sm: 2 }} spacing={50}>
@@ -76,4 +76,4 @@ const GameReviewSection = ({ metacritic }: GameReviewSectionProps) => {
   );
 };
 
-export default GameReviewSection;
+export default ReviewSection;
