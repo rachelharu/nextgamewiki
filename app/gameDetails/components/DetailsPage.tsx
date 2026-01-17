@@ -3,9 +3,9 @@ import { getGameDetails, type GameDetails } from '@/app/actions';
 import { useEffect, useState } from 'react';
 import { Container, Divider, Overlay, Text, Title } from '@mantine/core';
 import classes from './Details.module.css';
-import ImageCarousel from '@/components/ImageCarousel';
-import ReviewSection from '@/components/ReviewSection';
-import DetailsBody from '@/components/DetailsBody';
+import ImageCarousel from './ImageCarousel';
+import ReviewSection from './ReviewSection';
+import DetailsBody from './DetailsBody';
 
 interface DetailsPageProps {
   id: string;

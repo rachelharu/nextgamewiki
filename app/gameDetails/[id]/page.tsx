@@ -1,6 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import DetailsPage from "@/components/DetailsPage";
+import DetailsPage from "@/app/gameDetails/components/DetailsPage";
 import { trackGameView } from "../../actions/trackGameViews";
 import { Container } from "@mantine/core";
 

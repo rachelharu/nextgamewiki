@@ -50,10 +50,19 @@
     "@vitejs/plugin-react": "^5.1.2",
     "eslint": "^9.27.0",
     "eslint-config-next": "15.2.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "jsdom": "^27.4.0",
+    "prettier": "^3.8.0",
     "prisma": "^6.6.0",
     "typescript": "^5.8.3",
     "vitest": "^4.0.17"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "overrides": {
+    "html-encoding-sniffer": "5.0.0"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser"

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MantineProvider } from '@mantine/core';
 import { describe, it, expect } from 'vitest';
-import DetailsCard from '../../components/DetailsCard';
+import DetailsCard from '../../app/gameDetails/components/DetailsCard';
 
 describe('DetailsCard', () => {
     it('renders core rows from props', () => {
