@@ -21,12 +21,20 @@ Infrastructure & DevOps:
 - AWS CloudFormation
 - Docker
 
+Testing:
+
+- Vitest 
+- Playwright
+
+[TESTS.md](TESTS.md)
+
  Key Features
 
 - Real-time game data fetching and display
 - Responsive design across all devices
 - Database integration
 - Production-ready deployment
+- Unit and E2E testing
 
  Architecture Highlights
 
