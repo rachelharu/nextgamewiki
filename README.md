@@ -15,11 +15,8 @@ Backend:
 
 Infrastructure & DevOps:
 
-- AWS ECS
 - AWS EC2
 - AWS CodePipeline
-- AWS VPC
-- AWS CloudFormation
 - Docker
 
 Testing:
