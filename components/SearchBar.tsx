@@ -34,31 +34,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
         try {
             const games = await searchGames(debouncedSearchTerm);
-
-            const sortedByName = [...games].sort((a, b) => {
-                const searchTermLower = debouncedSearchTerm.toLowerCase();
-                const nameA = a.name.toLowerCase() === searchTermLower;
-                const nameB = b.name.toLowerCase() === searchTermLower;
-
-                if (nameA && !nameB) {
-                    return -1
-                }
-                if (!nameA && nameB) {
-                    return 1
-                }
-
-                const aStartsWith = a.name.toLowerCase().startsWith(searchTermLower);
-                const bStartsWith = b.name.toLowerCase().startsWith(searchTermLower);
-
-                if (aStartsWith && !bStartsWith) {
-                    return -1
-                }
-                if (!aStartsWith && bStartsWith) {
-                    return 1
-                }
-                return 0
-            });
-            setResults(sortedByName.slice(0, 20));
+            setResults(games.slice(0, 20));
         } catch (err) {
             console.error('Search failed:', err);
                 setError("Failed to load games. Please try again.");
