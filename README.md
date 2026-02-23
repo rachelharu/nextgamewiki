@@ -4,8 +4,8 @@ A full-stack web application for discovering video games, built as a technical s
 
 Frontend:
 
-- Next.js 14 with App Router
-- React with TypeScript
+- Next.js 15 with App Router
+- React 19 with TypeScript
 - Mantine UI and CSS for styling
 
 Backend:
@@ -28,7 +28,7 @@ Testing:
 
  Key Features
 
-- Real-time game data fetching and display
+- Cached game data fetching and display
 - Responsive design across all devices
 - Database integration
 - Production-ready deployment
@@ -48,7 +48,8 @@ This repo includes both production and development Docker Compose setups.
 
 Production compose:
 - `docker-compose.yml` builds the app image and runs it on port 3000.
-- Requires `DATABASE_URL`, `RAWG_API_KEY`, `RAPID_API_KEY`, `NEXT_PUBLIC_RAWG_API_KEY`.
+- Requires `DATABASE_URL`, `RAWG_API_KEY`, `RAPID_API_KEY`.
+- `NEXT_PUBLIC_RAWG_API_KEY` is optional and only needed if client-side RAWG API access is introduced.
 - Runs `npm run build` then `npm start` inside the container.
 
 Development compose:
@@ -91,8 +92,12 @@ docker run --rm -p 3000:3000 \
   -e DATABASE_URL="$DATABASE_URL" \
   -e RAWG_API_KEY="$RAWG_API_KEY" \
   -e RAPID_API_KEY="$RAPID_API_KEY" \
-  -e NEXT_PUBLIC_RAWG_API_KEY="$NEXT_PUBLIC_RAWG_API_KEY" \
   nextjs-app
+```
+
+Optional `docker run` env if you add client-side RAWG access:
+```bash
+-e NEXT_PUBLIC_RAWG_API_KEY="$NEXT_PUBLIC_RAWG_API_KEY"
 ```
 
 ## Scripts

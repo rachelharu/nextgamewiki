@@ -70,7 +70,7 @@ export default async function TrendingPage() {
               fw={700}
               className={classes.title} 
               component={Link}
-              href={`/gameDetails/${game.id} `}>{game.name}
+              href={`/gameDetails/${game.id}`}>{game.name}
             </Text>
             <Group mt="lg" justify="center">
               <div>
