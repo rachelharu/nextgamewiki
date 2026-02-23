@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 echo "Starting new Docker container..."
 
 # Fetch secrets from AWS SSM Parameter Store (SecureString parameters)
@@ -21,7 +22,6 @@ docker run -d \
   -e RAWG_API_KEY="$RAWG_API_KEY" \
   -e RAPID_API_KEY="$RAPID_API_KEY" \
   -e NEXT_PUBLIC_RAWG_API_KEY="$NEXT_PUBLIC_RAWG_API_KEY" \
-  # Add more -e lines here for any other environment variables you exported above!
   nextjs-app # This is the image we tagged in after_install.sh
 
 echo "Docker container started."
