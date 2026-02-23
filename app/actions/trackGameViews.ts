@@ -3,29 +3,23 @@
 import { db } from '@/lib/db';
 
 export async function trackGameView(rawgGameID: string) {
-    try {
-        const existingTracker = await db.trackedGame.findFirst({
-            where: { rawgGameID }
-        });
+  if (!rawgGameID) throw new Error('Game ID is required');
 
-        if (existingTracker) {
-            return await db.trackedGame.update({
-                where: { id: existingTracker.id },
-                data: {
-                    count: existingTracker.count + 1,
-                    updatedAt: new Date()
-                }
-            });
-        }
-
-        return await db.trackedGame.create({
-            data: {
-                rawgGameID,
-                count: 1
-            }
-        }); 
-    } catch (error) {
-        console.error('Error tracking game view:', error);
-        throw error;
-    }
+  try {
+    return await db.trackedGame.upsert({
+      where: { rawgGameID },
+      update: {
+        count: {
+          increment: 1,
+        },
+      },
+      create: {
+        rawgGameID,
+        count: 1,
+      },
+    });
+  } catch (error) {
+    console.error('Error tracking game view:', error);
+    throw error;
+  }
 }
