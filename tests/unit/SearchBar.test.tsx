@@ -65,7 +65,7 @@ describe('SearchBar', () => {
     expect(window.location.href).toBe('/gameDetails/1');
   });
 
-  it('prioritizes exact match then starts-with match', async () => {
+  it('renders games in the same order returned by searchGames', async () => {
     searchGamesMock.mockResolvedValue([
       {
         id: 2,
@@ -97,9 +97,9 @@ describe('SearchBar', () => {
 
     const headings = await screen.findAllByRole('heading', { level: 1 });
     expect(headings.map((node) => node.textContent)).toEqual([
-      'Halo',
+      'Minecraft',
       'Halo Infinite',
-      'Minecraft'
+      'Halo'
     ]);
   });
 });
