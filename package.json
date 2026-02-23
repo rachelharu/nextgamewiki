@@ -61,9 +61,6 @@
   "engines": {
     "node": ">=20"
   },
-  "overrides": {
-    "html-encoding-sniffer": "5.0.0"
-  },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser"
   }
