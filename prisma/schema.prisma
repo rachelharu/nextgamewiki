@@ -20,12 +20,11 @@ datasource db {
 
 model trackedGame {
   id              String @id @default(uuid())
-  rawgGameID      String
+  rawgGameID      String @unique
   count           Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@map("gameTracker")
   @@index([count(sort: Desc)], name: "idx_gameTracker_searchCount")
-  @@index([rawgGameID], name: "idx_gameTracker_rawgGameId")
 }
