@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
+import { Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
 import DetailsCard from './DetailsCard';
 
 interface DetailsBodyProps {
@@ -18,7 +18,6 @@ interface DetailsBodyProps {
 }
 
 const DetailsBody = ({
-   id,
    description,
    descImg,
    genres,
@@ -48,7 +47,7 @@ const DetailsBody = ({
             background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
           }}
         />
-          <Image mt="lg" src={descImg || ''}/>
+          <Image mt="lg" src={descImg || ''} alt="Game artwork" />
            <Text mt={35} size="md" fw={400} lts={1} className="text-shadow">
              {expanded || !isTruncated ? description : `${previewText.trim()}…`}
            </Text>

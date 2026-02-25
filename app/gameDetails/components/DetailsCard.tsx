@@ -12,7 +12,19 @@ interface DetailsCardProps {
   website?: string;
 }
 
-const data = [
+type DetailRow =
+  | { title: string; key: keyof DetailsCardProps }
+  | { title: string; render: (props: DetailsCardProps) => string };
+
+function hasRender(row: DetailRow): row is { title: string; render: (props: DetailsCardProps) => string } {
+  return 'render' in row;
+}
+
+function hasKey(row: DetailRow): row is { title: string; key: keyof DetailsCardProps } {
+  return 'key' in row;
+}
+
+const data: DetailRow[] = [
   { title: 'Genre:', key: 'genres' },
   { title: 'Platforms:', key: 'platforms' },
   { title: 'Release date:', key: 'releaseDate' },
@@ -27,14 +39,15 @@ const data = [
     },
   },
   { title: 'ESRB:', key: 'esrb_rating' },
-  { title: 'Links:', key: 'website', url: 'website' },
+  { title: 'Links:', key: 'website' },
 ];
 
-function isRowEmpty(row: any, props: DetailsCardProps) {
-  if ('render' in row && typeof row.render === 'function') {
+function isRowEmpty(row: DetailRow, props: DetailsCardProps) {
+  if (hasRender(row)) {
     const rendered = row.render(props);
     return rendered === undefined || rendered === null || rendered === '' || rendered === 'N/A';
   }
+  if (!hasKey(row)) return true;
   if (row.key === 'genres') {
     return !props.genres || props.genres.length === 0;
   } 
@@ -58,10 +71,13 @@ const DetailsCard = (props: DetailsCardProps) => {
             </Table.Td>
             <Table.Td pt="lg" pb="lg">
               <Text ta="left" fz="md" className={classes.text}>
-                {'render' in row && typeof row.render === 'function'
+                {hasRender(row)
                 ? row.render(props)
                 : 
                  (() => {
+                  if (!hasKey(row)) {
+                    return 'N/A';
+                  }
                   // Custom rendering for genres
                   if (row.key === 'genres') {
                     return props.genres && props.genres.length

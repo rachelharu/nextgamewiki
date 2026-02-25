@@ -26,6 +26,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
                 setResults([]);
                 setIsOpen(false);
                 setIsLoading(false);
+                setError(null);
                 return;
             }
             setIsLoading(true);
@@ -76,11 +77,16 @@ export default function SearchBar({ variant }: SearchBarProps) {
             onChange={handleSearch}
             placeholder={isNavbar ? 'Search games...' : 'Search'}
         />
-            {isOpen && results.length > 0 && (
+            {isOpen && (
                 <div className="dropdown is-active">
                     <div className="dropdown-menu">
                         <div className="dropdown-content results">
-                            {results.map((game) => (
+                            {isLoading && <div className="dropdown-item">Loading games...</div>}
+                            {!isLoading && error && <div className="dropdown-item">{error}</div>}
+                            {!isLoading && !error && results.length === 0 && (
+                                <div className="dropdown-item">No games found.</div>
+                            )}
+                            {!isLoading && !error && results.map((game) => (
                                 <a
                                     key={game.id}
                                     className="dropdown-item"

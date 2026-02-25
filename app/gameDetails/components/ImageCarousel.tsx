@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getGameScreenshots, Screenshot, } from '@/app/actions'
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
@@ -14,36 +13,26 @@ const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
 const [loadingScreenshots, setLoadingScreenshots] = useState(false);
 const [errorScreenshots, setErrorScreenshots] = useState<string | null>(null);
 
- async function loadGameScreenshots() {
-      setLoadingScreenshots(true);
-      setErrorScreenshots(null);
-      try {
-        const fetchedScreenshots = await getGameScreenshots(id);
-        setScreenshots(fetchedScreenshots);
-      } catch (error: any) {
-        console.error('Failed to fetch game screenshots:', error);
-        setErrorScreenshots(error.message || 'Failed to load screenshots.');
-      } finally {
-        setLoadingScreenshots(false);
-      }
-    }
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : 'Failed to load screenshots.';
+
+const loadGameScreenshots = useCallback(async () => {
+  setLoadingScreenshots(true);
+  setErrorScreenshots(null);
+  try {
+    const fetchedScreenshots = await getGameScreenshots(id);
+    setScreenshots(fetchedScreenshots);
+  } catch (error: unknown) {
+    console.error('Failed to fetch game screenshots:', error);
+    setErrorScreenshots(getErrorMessage(error));
+  } finally {
+    setLoadingScreenshots(false);
+  }
+}, [id]);
 
 useEffect(() => {
-    async function loadGameScreenshots() {
-     setLoadingScreenshots(true);
-     setErrorScreenshots(null);
-     try {
-        const fetchedScreenshots = await getGameScreenshots(id);
-        setScreenshots(fetchedScreenshots);
-     } catch (error: any) {
-        console.error('Failed to fetch game screenshots:', error);
-        setErrorScreenshots(error.message || 'Failed to load screenshots.');
-     } finally {
-        setLoadingScreenshots(false);
-     }
-    }
     loadGameScreenshots();
-}, [id]);
+}, [loadGameScreenshots]);
 
 if (loadingScreenshots) return <div>Loading screenshots...</div>;
 if (errorScreenshots) return <div>{errorScreenshots}</div>;
@@ -62,7 +51,7 @@ return (
     <Carousel.Slide key={screenshot.image}>
         <Image
           src={screenshot.image}
-          alt={`Screenshot for {gameName}`}
+          alt={`Screenshot for ${gameName}`}
           height={100}
         />
     </Carousel.Slide>
