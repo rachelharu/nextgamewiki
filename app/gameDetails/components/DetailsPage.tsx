@@ -1,5 +1,6 @@
 'use client';
-import { getGameDetails, type GameDetails } from '@/app/actions';
+import { getGameDetails } from '@/app/actions';
+import type { GameDetails } from '@/app/actions.types';
 import { useEffect, useState } from 'react';
 import { Container, Divider, Overlay, Text, Title } from '@mantine/core';
 import classes from './Details.module.css';

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getGameScreenshots, Screenshot, } from '@/app/actions'
+import { getGameScreenshots } from '@/app/actions'
+import type { Screenshot } from '@/app/actions.types';
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
 

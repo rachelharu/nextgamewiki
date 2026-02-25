@@ -1,51 +1,6 @@
 'use server';
 
-export interface Game {
-  id: number;
-  name: string;
-  rating: number;
-  background_image: string;
-}
-
-export interface MetacriticPlatform {
-  metascore: number;
-  url: string;
-  platform: {
-    id: number;
-    name: string;
-    slug: string;
-  };
-}
-
-export interface GameDetails {
-  id: number;
-  name: string;
-  background_image: string;
-  background_image_additional: string;
-  description_raw: string;
-  genres: Array<{ name: string }>;
-  publishers: Array<{ name: string }>;
-  developers: Array<{ name: string }>;
-  released: string;
-  esrb_rating: { name: string } | null;
-  metacritic: number | null;
-  metacritic_url: string;
-  metacritic_platforms: MetacriticPlatform[];
-  platforms: Array<{ platform: { name: string } }>;
-  website: string;
-}
-
-export interface Screenshot {
-  image: string;
-  hidden: boolean;
-}
-
-export interface ScreenshotsResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Screenshot[];
-}
+import type { Game, GameDetails, Screenshot, ScreenshotsResponse } from './actions.types';
 
 interface ApiResponse {
   results: Game[];
@@ -90,7 +45,7 @@ export async function searchGames(searchTerm: string): Promise<Game[]> {
   }
 }
 
-export async function getGameDetails(id: string) {
+export async function getGameDetails(id: string): Promise<GameDetails> {
   if (!id) throw new Error('Game ID is required');
 
   try {
@@ -106,7 +61,7 @@ export async function getGameDetails(id: string) {
       throw new Error(`API error: ${response.status}`);
     }
 
-    return response.json();
+    return response.json() as Promise<GameDetails>;
   } catch (error) {
     console.error('Error fetching game details:', error);
     throw error;

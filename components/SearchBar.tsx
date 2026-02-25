@@ -1,7 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useDebouncedValue } from '@mantine/hooks';
-import { searchGames, type Game } from '@/app/actions';
+import { searchGames } from '@/app/actions';
+import type { Game } from '@/app/actions.types';
 import { useState, useEffect } from 'react';
 
 
