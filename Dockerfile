@@ -9,7 +9,7 @@ COPY package*.json ./
 
 COPY prisma ./prisma/
 
-RUN npm install --frozen-lockfile
+RUN npm ci
 
 # --- Stage 2: Development Image - For local development and debugging ---
 FROM base AS development

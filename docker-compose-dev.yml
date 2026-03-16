@@ -16,7 +16,7 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - RAWG_API_KEY=${RAWG_API_KEY}
       - RAPID_API_KEY=${RAPID_API_KEY}
-      - NEXT_PUBLIC_RAWG_API_KEY=${RAWG_API_KEY}
+      - NEXT_PUBLIC_RAWG_API_KEY=${NEXT_PUBLIC_RAWG_API_KEY}
 
     volumes:
       - .:/app

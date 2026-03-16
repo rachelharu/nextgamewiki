@@ -59,13 +59,12 @@ export default function SearchBar({ variant }: SearchBarProps) {
         const value = event.target.value;
         const trimmedValue = value.trim();
         setSearchTerm(value);
-        if (trimmedValue.length >= 3 ) {
-            setIsOpen(false);
-            setHasSearched(false);
-        } else {
-            setIsOpen(false);
+        setIsOpen(false);
+        setHasSearched(false);
+        setError(null);
+
+        if (trimmedValue.length < 3) {
             setResults([]);
-            setHasSearched(false);
         }
     };
 
@@ -100,8 +99,9 @@ export default function SearchBar({ variant }: SearchBarProps) {
                             {!isLoading && !error && results.map((game) => {
                                 const imageSrc = game.background_image?.trim() || '/game-control.png';
                                 return (
-                                    <a
+                                    <button
                                         key={game.id}
+                                        type="button"
                                         className="dropdown-item"
                                         onClick={() => handleGameSelect(game)}
                                     >
@@ -112,8 +112,8 @@ export default function SearchBar({ variant }: SearchBarProps) {
                                             height={50}
                                             style={{ objectFit: 'cover'}}
                                         />
-                                        <h1>{game.name}</h1>
-                                    </a>
+                                        <span>{game.name}</span>
+                                    </button>
                                 );
                             })}
                         </div>

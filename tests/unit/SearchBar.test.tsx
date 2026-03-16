@@ -95,8 +95,8 @@ describe('SearchBar', () => {
       await flushPromises();
     });
 
-    const headings = await screen.findAllByRole('heading', { level: 1 });
-    expect(headings.map((node) => node.textContent)).toEqual([
+    const resultButtons = await screen.findAllByRole('button');
+    expect(resultButtons.map((node) => node.textContent?.trim())).toEqual([
       'Minecraft',
       'Halo Infinite',
       'Halo'
