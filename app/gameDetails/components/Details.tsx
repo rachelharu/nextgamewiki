@@ -8,13 +8,13 @@ import ImageCarousel from './ImageCarousel';
 import ReviewSection from './ReviewSection';
 import DetailsBody from './DetailsBody';
 
-interface DetailsPageProps {
+interface DetailsProps {
   id: string;
 }
 
 const regex = new RegExp("[^!.?]+[!.?]+", "g");
 
-export default function DetailsPage({ id }: DetailsPageProps) {
+export default function Details({ id }: DetailsProps) {
   const [gameData, setGameData] = useState<GameDetails | null>(null);
   const [loading, setLoading] = useState(true);
 
