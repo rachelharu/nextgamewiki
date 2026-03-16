@@ -41,7 +41,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
         try {
             const games = await searchGames(trimmedSearchTerm);
-            setResults(games.slice(0, 20));
+            setResults(games);
             setHasSearched(true);
         } catch (err) {
             console.error('Search failed:', err);

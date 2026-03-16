@@ -8,6 +8,7 @@ interface ApiResponse {
 }
 
 const BASE_URL = 'https://rawg-video-games-database.p.rapidapi.com';
+const SEARCH_RESULTS_LIMIT = 15;
 
 const options = {
   headers: {
@@ -26,7 +27,9 @@ export async function searchGames(searchTerm: string): Promise<Game[]> {
     const url = new URL(`${BASE_URL}/games`);
     const params = new URLSearchParams({
       key: process.env.RAWG_API_KEY!,
-      search: searchTerm
+      search: searchTerm,
+      page: '1',
+      page_size: String(SEARCH_RESULTS_LIMIT)
     });
     url.search = params.toString();
 
@@ -38,7 +41,7 @@ export async function searchGames(searchTerm: string): Promise<Game[]> {
 
     const data = await response.json() as ApiResponse;
     const sortedResults = [...data.results].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-    return sortedResults;
+    return sortedResults.slice(0, SEARCH_RESULTS_LIMIT);
   } catch (error) {
     console.error('Error fetching games:', error);
     return [];
