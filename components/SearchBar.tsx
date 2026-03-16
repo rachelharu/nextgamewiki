@@ -16,6 +16,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
     const [results, setResults] = useState<Game[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const isNavbar = variant === 'navbar';
 
@@ -23,24 +24,30 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
     useEffect(() => {
         const performSearch = async () => {
-            if (!debouncedSearchTerm.trim()) {
+            const trimmedSearchTerm = debouncedSearchTerm.trim();
+            if (trimmedSearchTerm.length < 3) {
                 setResults([]);
                 setIsOpen(false);
                 setIsLoading(false);
                 setError(null);
+                setHasSearched(false);
                 return;
             }
+
             setIsLoading(true);
             setError(null);
             setIsOpen(true);
+            setHasSearched(false);
 
         try {
-            const games = await searchGames(debouncedSearchTerm);
+            const games = await searchGames(trimmedSearchTerm);
             setResults(games.slice(0, 20));
+            setHasSearched(true);
         } catch (err) {
             console.error('Search failed:', err);
                 setError("Failed to load games. Please try again.");
                 setResults([]);
+                setHasSearched(true);
             } finally {
                 setIsLoading(false);
             }
@@ -48,14 +55,17 @@ export default function SearchBar({ variant }: SearchBarProps) {
         performSearch();
     }, [debouncedSearchTerm]);
 
-    const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        const trimmedValue = value.trim();
         setSearchTerm(value);
-        if (value.length >= 3 ) {
-            setIsOpen(true);
+        if (trimmedValue.length >= 3 ) {
+            setIsOpen(false);
+            setHasSearched(false);
         } else {
             setIsOpen(false);
             setResults([]);
+            setHasSearched(false);
         }
     };
 
@@ -84,7 +94,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
                         <div className="dropdown-content results">
                             {isLoading && <div className="dropdown-item">Loading games...</div>}
                             {!isLoading && error && <div className="dropdown-item">{error}</div>}
-                            {!isLoading && !error && results.length === 0 && (
+                            {!isLoading && !error && hasSearched && results.length === 0 && (
                                 <div className="dropdown-item">No games found.</div>
                             )}
                             {!isLoading && !error && results.map((game) => (
