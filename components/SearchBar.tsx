@@ -97,20 +97,25 @@ export default function SearchBar({ variant }: SearchBarProps) {
                             {!isLoading && !error && hasSearched && results.length === 0 && (
                                 <div className="dropdown-item">No games found.</div>
                             )}
-                            {!isLoading && !error && results.map((game) => (
-                                <a
-                                    key={game.id}
-                                    className="dropdown-item"
-                                    onClick={() => handleGameSelect(game)}
-                                >
-                                    <Image src={game.background_image} 
-                                        alt={game.name} 
-                                        width={50} 
-                                        height={50} 
-                                        style={{ objectFit: 'cover'}} />
-                                    <h1>{game.name}</h1>
-                                </a>
-                            ))}
+                            {!isLoading && !error && results.map((game) => {
+                                const imageSrc = game.background_image?.trim() || '/game-control.png';
+                                return (
+                                    <a
+                                        key={game.id}
+                                        className="dropdown-item"
+                                        onClick={() => handleGameSelect(game)}
+                                    >
+                                        <Image
+                                            src={imageSrc}
+                                            alt={game.name}
+                                            width={50}
+                                            height={50}
+                                            style={{ objectFit: 'cover'}}
+                                        />
+                                        <h1>{game.name}</h1>
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
