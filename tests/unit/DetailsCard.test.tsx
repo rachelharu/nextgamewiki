@@ -24,6 +24,10 @@ describe('DetailsCard', () => {
         expect(screen.getByText('Company:')).toBeInTheDocument();
         expect(screen.getByText('ESRB:')).toBeInTheDocument();
         expect(screen.getByText('Links:')).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'https://example.com' })).toHaveAttribute(
+            'href',
+            'https://example.com'
+        );
     });
     
     it('omits rows with missing data', () => {

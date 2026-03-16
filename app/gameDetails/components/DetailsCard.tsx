@@ -104,6 +104,21 @@ const DetailsCard = (props: DetailsCardProps) => {
                         ))
                       : 'N/A';
                   }
+                  if (row.key === 'website') {
+                    const websiteValue = props.website?.trim();
+                    if (!websiteValue || websiteValue === 'N/A') return 'N/A';
+                    return (
+                      <Anchor
+                        href={websiteValue}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        c="#dee0e6"
+                        underline="always"
+                      >
+                        {websiteValue}
+                      </Anchor>
+                    );
+                  }
                   // rendering for other fields
                   const value = props[row.key as keyof DetailsCardProps];
                   return value !== undefined && value !== null && value !== ''
