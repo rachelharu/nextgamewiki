@@ -1,7 +1,4 @@
-'use client';
-import { getGameDetails } from '@/app/actions';
-import type { GameDetails } from '@/app/actions.types';
-import { useEffect, useState } from 'react';
+import type { GameDetails, Screenshot } from '@/app/actions.types';
 import { Container, Divider, Overlay, Text, Title } from '@mantine/core';
 import classes from './Details.module.css';
 import ImageCarousel from './ImageCarousel';
@@ -9,34 +6,13 @@ import ReviewSection from './ReviewSection';
 import DetailsBody from './DetailsBody';
 
 interface DetailsProps {
-  id: string;
+  gameData: GameDetails;
+  screenshots: Screenshot[];
 }
 
 const regex = new RegExp("[^!.?]+[!.?]+", "g");
 
-export default function Details({ id }: DetailsProps) {
-  const [gameData, setGameData] = useState<GameDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadGameDetails() {
-      try {
-        const details = await getGameDetails(id);
-        // console.log(details);
-        setGameData(details);
-        setLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch game details:', error);
-        setLoading(false);
-      }
-    }
-
-    loadGameDetails();
-  }, [id]);
-
-  if (loading) return <div>Loading...</div>;
-  if (!gameData) return <div>Game not found</div>;
-
+export default function Details({ gameData, screenshots }: DetailsProps) {
   const {
     name,
     background_image,
@@ -80,9 +56,8 @@ return (
     </div>
 
     <Container pb="25" pl={150} pr={150} pt={25} fluid >
-      <ImageCarousel id={id} gameName={name} />
+      <ImageCarousel gameName={name} screenshots={screenshots} />
       <DetailsBody
-        id={id}
         description={description_raw}
         descImg={background_image_additional}
         genres={genres?.map((g) => ({ name: g.name })) ?? []}

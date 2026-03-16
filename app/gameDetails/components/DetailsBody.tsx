@@ -1,9 +1,9 @@
+'use client';
 import React from 'react'
 import { Grid, Image, Text, Title, Button, Paper } from '@mantine/core';
 import DetailsCard from './DetailsCard';
 
 interface DetailsBodyProps {
-  id: string;
   description: string;
   descImg: string;
   genres: { name: string }[];
