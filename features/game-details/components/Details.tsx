@@ -1,4 +1,4 @@
-import type { GameDetails, Screenshot } from '@/app/actions.types';
+import type { GameDetails, Screenshot } from '@/types/rawg';
 import { Container, Divider, Overlay, Text, Title } from '@mantine/core';
 import classes from './Details.module.css';
 import ImageCarousel from './ImageCarousel';

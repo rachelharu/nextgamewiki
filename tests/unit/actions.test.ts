@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getGameDetails, getGameScreenshots, searchGames } from '@/app/actions';
+import { getGameDetails, getGameScreenshots, searchGames } from '@/lib/rawg/api';
 
 const mockFetch = vi.fn();
 
-describe('app/actions', () => {
+describe('lib/rawg/api', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();

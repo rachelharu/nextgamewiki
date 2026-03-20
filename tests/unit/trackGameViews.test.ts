@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { trackGameView } from '@/app/actions/trackGameViews';
+import { trackGameView } from '@/lib/services/tracking';
 import { db } from '@/lib/db';
 
 vi.mock('@/lib/db', () => ({

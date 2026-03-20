@@ -1,5 +1,5 @@
 import AnimateText from './AnimateText';
-import SearchBar from './SearchBar';
+import SearchBar from '@/features/search/SearchBar';
 
 export default function SearchHero() {
     return (

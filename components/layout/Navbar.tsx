@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '@/features/search/SearchBar';
 import styles from './Navbar.module.css';
 
 interface NavbarProps {

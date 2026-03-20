@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import { Badge, Box, Card, Group, Image, SimpleGrid, Text } from '@mantine/core';
 import classes from './trending.module.css';
 import { db } from "@/lib/db";
-import { getGameDetails } from "@/app/actions";
+import { getGameDetails } from "@/lib/rawg/api";
 
 export const dynamic = 'force-dynamic';
 

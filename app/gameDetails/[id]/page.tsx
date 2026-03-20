@@ -1,8 +1,8 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Details from "@/app/gameDetails/components/Details";
-import { trackGameView } from "../../actions/trackGameViews";
-import { getGameDetails, getGameScreenshots } from "@/app/actions";
+import Details from "@/features/game-details/components/Details";
+import { trackGameView } from "@/lib/services/tracking";
+import { getGameDetails, getGameScreenshots } from "@/lib/rawg/api";
 import { Container } from "@mantine/core";
 
 interface GameDetailsPageProps {

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SearchBar from '../../components/SearchBar';
+import SearchBar from '../../features/search/SearchBar';
 
 vi.mock('next/image', () => ({
   default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => <img {...props} />
@@ -12,7 +12,7 @@ vi.mock('@mantine/hooks', () => ({
 }));
 
 const searchGamesMock = vi.fn();
-vi.mock('@/app/actions', () => ({
+vi.mock('@/lib/rawg/api', () => ({
   searchGames: (...args: unknown[]) => searchGamesMock(...args)
 }));
 

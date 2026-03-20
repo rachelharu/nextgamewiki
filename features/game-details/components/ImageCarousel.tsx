@@ -1,4 +1,4 @@
-import type { Screenshot } from '@/app/actions.types';
+import type { Screenshot } from '@/types/rawg';
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
 

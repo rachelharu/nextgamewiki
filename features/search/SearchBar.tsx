@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useDebouncedValue } from '@mantine/hooks';
-import { searchGames } from '@/app/actions';
-import type { Game } from '@/app/actions.types';
+import { searchGames } from '@/lib/rawg/api';
+import type { Game } from '@/types/rawg';
 import { useState, useEffect } from 'react';
 
 

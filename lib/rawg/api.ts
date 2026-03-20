@@ -1,6 +1,6 @@
 'use server';
 
-import type { Game, GameDetails, Screenshot, ScreenshotsResponse } from './actions.types';
+import type { Game, GameDetails, Screenshot, ScreenshotsResponse } from '@/types/rawg';
 
 interface ApiResponse {
   results: Game[];
