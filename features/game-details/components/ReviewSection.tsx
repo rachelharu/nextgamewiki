@@ -61,7 +61,7 @@ const ReviewSection = ({ metacritic, metacritic_url, metacritic_platforms }: Rev
               <Text pl="lg" fw={500} fz={25}>
                 {selectRating(metacritic)}
               </Text>
-              {metacritic_url && (
+              {/* {metacritic_url && (
                 <Anchor
                   href={metacritic_url}
                   target="_blank"
@@ -72,12 +72,12 @@ const ReviewSection = ({ metacritic, metacritic_url, metacritic_platforms }: Rev
                 >
                   View on Metacritic
                 </Anchor>
-              )}
-              {topPlatformScores.map(({ platform, metascore }) => (
+              )} */}
+              {/* {topPlatformScores.map(({ platform, metascore }) => (
                 <Text key={platform.id} pl="lg" size="sm" c="dimmed">
                   {platform.name}: {metascore}
                 </Text>
-              ))}
+              ))} */}
            </Container>
           </div>
         </div>

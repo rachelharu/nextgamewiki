@@ -79,7 +79,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
     const handleGameSelect = (game: Game) => {
         setIsOpen(false);
-        setSearchTerm(game.name);
+        setIsLoading(false);
         router.push(`/gameDetails/${game.id}`);
     };
 

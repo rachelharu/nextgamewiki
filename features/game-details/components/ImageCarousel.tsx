@@ -1,5 +1,6 @@
+'use client';
 import type { Screenshot } from '@/types/rawg';
-import { Carousel } from '@mantine/carousel';
+import { Carousel, CarouselSlide } from '@mantine/carousel';
 import { Image } from '@mantine/core';
 
 interface ImageCarouselProps {
@@ -21,13 +22,13 @@ export default function ImageCarousel({ gameName, screenshots }: ImageCarouselPr
       emblaOptions={{ loop: true, align: 'start', slidesToScroll: 3 }}
     >
       {screenshots.map((screenshot) =>  (
-      <Carousel.Slide key={screenshot.image}>
+      <CarouselSlide key={screenshot.image}>
         <Image
           src={screenshot.image}
           alt={`Screenshot for ${gameName}`}
           height={100}
         />
-      </Carousel.Slide>
+      </CarouselSlide>
       ))}
     </Carousel>
   );
