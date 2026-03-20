@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import SearchBar from '../../features/search/SearchBar';
 
 vi.mock('next/image', () => ({
@@ -11,17 +11,17 @@ vi.mock('@mantine/hooks', () => ({
   useDebouncedValue: (value: string) => [value]
 }));
 
+const pushMock = vi.fn();
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: pushMock
+  })
+}));
+
 const searchGamesMock = vi.fn();
 vi.mock('@/lib/rawg/api', () => ({
   searchGames: (...args: unknown[]) => searchGamesMock(...args)
 }));
-
-const setWindowLocation = () => {
-  Object.defineProperty(window, 'location', {
-    value: { href: '' },
-    writable: true
-  });
-};
 
 const flushPromises = async () => {
   await Promise.resolve();
@@ -29,10 +29,6 @@ const flushPromises = async () => {
 };
 
 describe('SearchBar', () => {
-  beforeEach(() => {
-    setWindowLocation();
-  });
-
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -62,7 +58,7 @@ describe('SearchBar', () => {
       fireEvent.click(result);
       await flushPromises();
     });
-    expect(window.location.href).toBe('/gameDetails/1');
+    expect(pushMock).toHaveBeenCalledWith('/gameDetails/1');
   });
 
   it('renders games in the same order returned by searchGames', async () => {

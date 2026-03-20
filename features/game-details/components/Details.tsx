@@ -12,6 +12,18 @@ interface DetailsProps {
 
 const regex = new RegExp("[^!.?]+[!.?]+", "g");
 
+function formatReleaseDate(released: string): string {
+  if (!released || released === 'N/A') return 'N/A';
+  const parsedDate = new Date(released);
+  if (Number.isNaN(parsedDate.getTime())) return released;
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(parsedDate);
+}
+
 export default function Details({ gameData, screenshots }: DetailsProps) {
   const {
     name,
@@ -60,28 +72,20 @@ return (
       <DetailsBody
         description={description_raw}
         descImg={background_image_additional}
-        genres={genres?.map((g) => ({ name: g.name })) ?? []}
-        platforms={platforms?.map((p) => ({ name: p.platform.name })) ?? []}
-        released={released === null
-          ? 'N/A'
-          : new Intl.DateTimeFormat('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            }).format(new Date(released))}
-        publishers={publishers?.map((p) => ({ name: p.name }))}
-        developers={developers?.map((d) => ({ name: d.name }))}
-        esrb_rating={esrb_rating === null ? 'N/A' : esrb_rating.name}
-        metacritic={metacritic === null ? -1 : metacritic}
-        metacritic_url={metacritic_url}
-        website={website ? website : 'N/A'}
+        genres={genres.map((g) => ({ name: g.name }))}
+        platforms={platforms.map((p) => ({ name: p.platform.name }))}
+        released={formatReleaseDate(released)}
+        publishers={publishers.map((p) => ({ name: p.name }))}
+        developers={developers.map((d) => ({ name: d.name }))}
+        esrb_rating={esrb_rating?.name ?? 'N/A'}
+        website={website}
       />
 
       <Title ta="left" lh="md" fw={600} order={5}>Critics reviews</Title>
       <Divider my="sm" size="xs" />
       <ReviewSection
         metacritic_platforms={metacritic_platforms}
-        metacritic={metacritic === null ? -1 : metacritic}
+        metacritic={metacritic}
         metacritic_url={metacritic_url}
       />
       <Divider my="sm" size="xs" />

@@ -1,15 +1,19 @@
 import React from 'react';
-import { Container, RingProgress, SimpleGrid, Text } from '@mantine/core';
+import { Anchor, Container, RingProgress, SimpleGrid, Text } from '@mantine/core';
 import Image from 'next/image';
 import classes from './ReviewSection.module.css';
 
 interface ReviewSectionProps {
-  metacritic: number;
+  metacritic: number | null;
   metacritic_url: string;
   metacritic_platforms: { metascore: number; url: string; platform: { id: number; name: string; slug: string } }[];
 }
 
-function selectRating(metacritic:number): string {
+function selectRating(metacritic: number | null): string {
+  if (metacritic === null) {
+    return "No critics score yet";
+  }
+
   if (metacritic >= 90) {
     return "Universal Acclaim"
   } else if (metacritic >= 75) {
@@ -23,7 +27,11 @@ function selectRating(metacritic:number): string {
   }
 }
 
-function getColor(metacritic:number): string {
+function getColor(metacritic: number | null): string {
+  if (metacritic === null) {
+    return "Gray";
+  }
+
   if (metacritic >= 75) {
     return "Green";
   } else if (metacritic >= 50 && metacritic <= 74) {
@@ -33,7 +41,11 @@ function getColor(metacritic:number): string {
   }
 }
 
-const ReviewSection = ({ metacritic }: ReviewSectionProps) => {
+const ReviewSection = ({ metacritic, metacritic_url, metacritic_platforms }: ReviewSectionProps) => {
+  const normalizedScore =
+    metacritic === null ? 0 : Math.max(0, Math.min(100, metacritic));
+  const topPlatformScores = metacritic_platforms.slice(0, 3);
+
   return (
     <Container  mt={20} mb={20} size="lg">
       <SimpleGrid ml="md" mr="md" cols={{ base: 1, sm: 2 }} spacing={50}>
@@ -49,6 +61,23 @@ const ReviewSection = ({ metacritic }: ReviewSectionProps) => {
               <Text pl="lg" fw={500} fz={25}>
                 {selectRating(metacritic)}
               </Text>
+              {metacritic_url && (
+                <Anchor
+                  href={metacritic_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  c="#dee0e6"
+                  ml="lg"
+                  size="sm"
+                >
+                  View on Metacritic
+                </Anchor>
+              )}
+              {topPlatformScores.map(({ platform, metascore }) => (
+                <Text key={platform.id} pl="lg" size="sm" c="dimmed">
+                  {platform.name}: {metascore}
+                </Text>
+              ))}
            </Container>
           </div>
         </div>
@@ -58,14 +87,14 @@ const ReviewSection = ({ metacritic }: ReviewSectionProps) => {
             <RingProgress ml={50} mb="xl"
               label={
               <Text size="xl" ta="center">
-                {metacritic}
+                {metacritic ?? 'N/A'}
               </Text>
               }
               size={150}
               thickness={11}
               roundCaps
               sections={[
-                { value: metacritic, color: getColor(metacritic) },
+                { value: normalizedScore, color: getColor(metacritic) },
               ]}
               rootColor="#87878b" 
             />

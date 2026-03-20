@@ -26,7 +26,7 @@ Testing:
 
 [TESTS.md](TESTS.md)
 
- Key Features
+Key Features
 
 - Cached game data fetching and display
 - Responsive design across all devices
@@ -43,14 +43,20 @@ Testing:
 
 This project demonstrates full-stack development skills including React/Next.js, database design, API integration, and cloud deployment with AWS
 
+## Architecture
+- `app/`: route pages and layout only
+- `features/`: UI grouped by feature (`search`, `game-details`)
+- `lib/`: backend/service logic (`rawg`, internal services)
+- `types/`: shared TypeScript types
+
 ## Docker
 This repo includes both production and development Docker Compose setups.
 
 Production compose:
-- `docker-compose.yml` builds the app image and runs it on port 3000.
+- `docker-compose.yml` builds the `runner` stage from `Dockerfile` and runs it on port 3000.
 - Requires `DATABASE_URL`, `RAWG_API_KEY`, `RAPID_API_KEY`.
-- `NEXT_PUBLIC_RAWG_API_KEY` is optional and only needed if client-side RAWG API access is introduced.
-- Runs `npm run build` then `npm start` inside the container.
+- `NEXT_PUBLIC_RAWG_API_KEY` is optional.
+- Runs the production image command directly (`next start` from the built image).
 
 Development compose:
 - `docker-compose-dev.yml` uses the `development` stage from `Dockerfile`.

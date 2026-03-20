@@ -16,7 +16,8 @@ This project includes unit tests (Vitest) and end-to-end tests (Playwright).
 
    npm run test
 
-4. Run e2e tests (make sure dev server is running at http://localhost:3000):
+4. Run e2e tests:
 
    npm run test:e2e
 
+   Playwright will start the Next.js dev server automatically using the `webServer` setting.

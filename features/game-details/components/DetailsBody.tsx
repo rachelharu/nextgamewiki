@@ -12,8 +12,6 @@ interface DetailsBodyProps {
   publishers?: { name: string }[];
   developers?: { name: string }[];
   esrb_rating?: string;
-  metacritic?: number;
-  metacritic_url?: string;
   website?: string;
 }
 
@@ -33,6 +31,7 @@ const DetailsBody = ({
   const PREVIEW_CHARS = 350;
   const isTruncated = !!(description && description.length > PREVIEW_CHARS);
   const previewText = description ? description.slice(0, PREVIEW_CHARS) : '';
+  const hasDescriptionImage = !!descImg?.trim();
 
   return (
     // Description
@@ -47,7 +46,9 @@ const DetailsBody = ({
             background: 'linear-gradient(90deg, #ff7a18 0%, #ff2d00 12%, var(--main-color, #2b2b3a) 12%, var(--main-color, #2b2b3a) 100%)',
           }}
         />
-          <Image mt="lg" src={descImg || ''} alt="Game artwork" />
+          {hasDescriptionImage && (
+            <Image mt="lg" src={descImg} alt="Game artwork" />
+          )}
            <Text mt={35} size="md" fw={400} lts={1} className="text-shadow">
              {expanded || !isTruncated ? description : `${previewText.trim()}…`}
            </Text>

@@ -37,10 +37,3 @@ export interface Screenshot {
   image: string;
   hidden: boolean;
 }
-
-export interface ScreenshotsResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Screenshot[];
-}

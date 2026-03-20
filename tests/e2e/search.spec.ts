@@ -7,7 +7,7 @@ test('search navigates to a game details page', async ({ page }) => {
   await expect(searchInput).toBeVisible();
   await searchInput.fill('minecraft');
 
-  const firstResult = page.locator('.dropdown-item').first();
+  const firstResult = page.locator('button.dropdown-item').first();
   await expect(firstResult).toBeVisible({ timeout: 20000 });
   await firstResult.click();
 

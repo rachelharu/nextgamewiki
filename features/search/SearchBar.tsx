@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
 import { useDebouncedValue } from '@mantine/hooks';
+import { useRouter } from 'next/navigation';
 import { searchGames } from '@/lib/rawg/api';
 import type { Game } from '@/types/rawg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 interface SearchBarProps {
@@ -19,10 +20,14 @@ export default function SearchBar({ variant }: SearchBarProps) {
     const [hasSearched, setHasSearched] = useState(false);
 
     const isNavbar = variant === 'navbar';
+    const router = useRouter();
+    const latestSearchId = useRef(0);
 
     const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
 
     useEffect(() => {
+        const searchId = ++latestSearchId.current;
+
         const performSearch = async () => {
             const trimmedSearchTerm = debouncedSearchTerm.trim();
             if (trimmedSearchTerm.length < 3) {
@@ -41,14 +46,17 @@ export default function SearchBar({ variant }: SearchBarProps) {
 
         try {
             const games = await searchGames(trimmedSearchTerm);
+            if (latestSearchId.current !== searchId) return;
             setResults(games);
             setHasSearched(true);
         } catch (err) {
+            if (latestSearchId.current !== searchId) return;
             console.error('Search failed:', err);
                 setError("Failed to load games. Please try again.");
                 setResults([]);
                 setHasSearched(true);
             } finally {
+                if (latestSearchId.current !== searchId) return;
                 setIsLoading(false);
             }
         };
@@ -61,6 +69,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
         setSearchTerm(value);
         setIsOpen(false);
         setHasSearched(false);
+        setIsLoading(false);
         setError(null);
 
         if (trimmedValue.length < 3) {
@@ -71,7 +80,7 @@ export default function SearchBar({ variant }: SearchBarProps) {
     const handleGameSelect = (game: Game) => {
         setIsOpen(false);
         setSearchTerm(game.name);
-        window.location.href = `/gameDetails/${game.id}`;
+        router.push(`/gameDetails/${game.id}`);
     };
 
     return (
