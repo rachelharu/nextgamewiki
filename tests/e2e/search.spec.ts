@@ -9,7 +9,10 @@ test('search navigates to a game details page', async ({ page }) => {
 
   const firstResult = page.locator('button.dropdown-item').first();
   await expect(firstResult).toBeVisible({ timeout: 20000 });
-  await firstResult.click();
+  await Promise.all([
+    page.waitForURL(/\/gameDetails\/\d+/, { timeout: 30000 }),
+    firstResult.click(),
+  ]);
 
-  await expect(page).toHaveURL(/\/gameDetails\/\d+/, { timeout: 10000 });
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 });
 });
